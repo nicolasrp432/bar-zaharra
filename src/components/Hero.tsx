@@ -38,7 +38,7 @@ export default function Hero({
         >
           {hasPhoto ? (
             <img
-              src="/img/hero.jpg"
+              src={`${import.meta.env.BASE_URL}img/hero.jpg`}
               alt="La Burger de la Casa, recién hecha"
               className="h-full w-full rounded-b-3xl object-cover"
               onError={() => setHasPhoto(false)}
