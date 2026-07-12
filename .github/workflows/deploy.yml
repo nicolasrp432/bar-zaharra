@@ -1,0 +1,43 @@
+name: Desplegar en GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      # despliegue de la v1 antes del merge; se puede quitar esta línea después
+      - claude/zaharra-interactive-menu-yfki1q
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compilar (base /bar-zaharra/)
+        run: npx tsc --noEmit && npx vite build --base=/bar-zaharra/
+
+      - name: Publicar en la rama gh-pages
+        run: |
+          touch dist/.nojekyll
+          cd dist
+          git init -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publicar carta digital (${GITHUB_SHA::7})"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages:gh-pages
