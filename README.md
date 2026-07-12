@@ -4,6 +4,10 @@ Carta digital inmersiva para **Taberna Zaharra** (desde 2002). Pensada para el Q
 al abrirla no aparece una lista ni un PDF, sino un recorrido — intro cinematográfica, capítulos
 con identidad propia por categoría y cada plato contando su historia.
 
+**🌐 En producción: https://nicolasrp432.github.io/bar-zaharra/** — cada push a `main`
+redespliega automáticamente (workflow `.github/workflows/deploy.yml`, publica en la rama
+`gh-pages`). Ese es el enlace para generar el QR de las mesas.
+
 ## La experiencia
 
 - **Intro cinematográfica** — pantalla negra, una luz cálida se enciende sobre la madera y aparece
