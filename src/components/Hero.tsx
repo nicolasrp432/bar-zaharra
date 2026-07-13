@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Burger from './scenes/Burger'
 import Smoke from './fx/Smoke'
+import { IconChevronDown, IconSparkle } from './Icons'
 
 /**
  * Portada: bodegón cinematográfico de la hamburguesa estrella, muy oscuro y
- * cálido. Si existe /img/hero.jpg (foto real), sustituye a la ilustración.
+ * cálido. Si existe /img/hero.png (foto recortada, fondo transparente),
+ * sustituye a la ilustración y flota sobre la luz.
  */
 export default function Hero({
   onSurprise,
@@ -18,7 +20,7 @@ export default function Hero({
 
   return (
     <header className="wood vignette film-grain relative flex min-h-svh flex-col overflow-hidden">
-      <p className="relative z-10 pt-7 text-center font-serif text-[11px] uppercase tracking-[0.5em] text-gold">
+      <p className="relative z-10 pt-7 text-center text-[10px] font-semibold uppercase tracking-[0.5em] text-gold">
         Taberna Zaharra · Desde 2002
       </p>
 
@@ -38,9 +40,10 @@ export default function Hero({
         >
           {hasPhoto ? (
             <img
-              src={`${import.meta.env.BASE_URL}img/hero.jpg`}
+              src={`${import.meta.env.BASE_URL}img/hero.png`}
               alt="La Burger de la Casa, recién hecha"
-              className="h-full w-full rounded-b-3xl object-cover"
+              className="h-full w-full object-contain"
+              style={{ filter: 'drop-shadow(0 36px 44px rgb(0 0 0 / 0.55))' }}
               onError={() => setHasPhoto(false)}
             />
           ) : (
@@ -56,11 +59,11 @@ export default function Hero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.9 }}
-          className="mx-auto max-w-md font-display text-4xl leading-tight text-cream sm:text-5xl"
+          className="mx-auto max-w-md font-display text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl"
         >
           Hecho al momento.
           <br />
-          <span className="text-gold">Como debe ser.</span>
+          <span className="italic text-gold">Como debe ser.</span>
         </motion.h2>
 
         <motion.div
@@ -71,24 +74,26 @@ export default function Hero({
         >
           <a
             href="#compartir"
-            className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-ink transition-transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-transform hover:scale-105 active:scale-95"
           >
-            ↓ Ver carta
+            Ver carta
+            <IconChevronDown size={14} className="motion-safe:animate-bob" />
           </a>
           <div className="flex gap-2.5">
             <button
               type="button"
               onClick={onSurprise}
-              className="rounded-full border border-gold/40 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:bg-gold/10"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold transition-colors hover:border-gold/40 hover:bg-gold/5"
             >
-              ✨ Sorpréndeme
+              <IconSparkle size={13} />
+              Sorpréndeme
             </button>
             <button
               type="button"
               onClick={onRecommend}
-              className="rounded-full border border-gold/40 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:bg-gold/10"
+              className="inline-flex items-center rounded-full border border-white/15 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold transition-colors hover:border-gold/40 hover:bg-gold/5"
             >
-              🍽 ¿Qué pido?
+              ¿Qué pido?
             </button>
           </div>
         </motion.div>

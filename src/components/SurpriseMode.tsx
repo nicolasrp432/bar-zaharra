@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PRODUCTS, type Product } from '../data/menu'
 import ProductScene from './scenes/ProductScene'
+import { IconClose, IconSparkle } from './Icons'
 
 /**
- * Modo "tengo hambre": una ruleta rápida recorre la carta y la casa elige
- * por ti. "Hoy deberías pedir esto."
+ * Modo "tengo hambre": una ruleta tipográfica recorre la carta y la casa
+ * elige por ti. "Hoy deberías pedir esto."
  */
 export default function SurpriseMode({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [phase, setPhase] = useState<'rolling' | 'done'>('rolling')
@@ -54,46 +55,42 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             }}
           />
 
-          <p className="relative text-xs uppercase tracking-[0.4em] text-cream-dim">
+          <p className="relative flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.4em] text-cream-dim">
+            <IconSparkle size={13} className="text-gold" />
             La casa elige
           </p>
 
-          <div className="relative mt-6 h-56 w-72 sm:h-64 sm:w-80">
-            <motion.div
-              key={pick.id + phase}
-              initial={{ scale: phase === 'done' ? 0.7 : 0.94, opacity: 0.6 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={
-                phase === 'done'
-                  ? { type: 'spring', stiffness: 180, damping: 14 }
-                  : { duration: 0.08 }
-              }
-              className="h-full w-full"
-            >
-              {/* durante la ruleta basta el emoji; el plato completo, al parar */}
-              {phase === 'rolling' ? (
-                <div className="grid h-full w-full place-items-center text-7xl">
-                  {pick.scene.startsWith('burger') ? '🍔' : pick.scene === 'bocata' ? '🥖' : pick.scene.startsWith('shake') ? '🥤' : pick.scene.startsWith('malteada') ? '🍦' : '🍟'}
-                </div>
-              ) : (
+          {/* durante la ruleta, los nombres pasan en Fraunces; al parar, el plato */}
+          <div className="relative mt-8 flex h-64 w-full max-w-sm flex-col items-center justify-center">
+            {phase === 'rolling' ? (
+              <motion.p
+                key={pick.id}
+                initial={{ opacity: 0.3, y: 14, filter: 'blur(2px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.09 }}
+                className="font-display text-4xl font-semibold italic text-cream/85"
+              >
+                {pick.name}
+              </motion.p>
+            ) : (
+              <motion.div
+                key={`done-${pick.id}`}
+                initial={{ scale: 0.7, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 180, damping: 14 }}
+                className="h-full w-full"
+              >
                 <ProductScene product={pick} />
-              )}
-            </motion.div>
+              </motion.div>
+            )}
           </div>
 
           <div className="relative mt-4 min-h-32">
-            <motion.h3
-              key={pick.id}
-              initial={{ opacity: 0.4, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-display text-3xl text-cream"
-            >
-              {pick.name}
-            </motion.h3>
             {phase === 'done' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-                <p className="mt-1 font-display text-2xl text-ember">{pick.price}</p>
-                <p className="mt-2 font-script text-2xl text-gold">Hoy deberías pedir esto.</p>
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                <h3 className="font-display text-3xl font-semibold text-cream">{pick.name}</h3>
+                <p className="mt-1 font-display text-2xl font-semibold text-ember">{pick.price}</p>
+                <p className="mt-3 font-serif text-xl italic text-gold">Hoy deberías pedir esto.</p>
               </motion.div>
             )}
           </div>
@@ -102,7 +99,7 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             <a
               href={`#${pick.id}`}
               onClick={onClose}
-              className={`rounded-full bg-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition-opacity ${
+              className={`rounded-full bg-gold px-7 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-ink transition-opacity ${
                 phase === 'done' ? 'opacity-100' : 'pointer-events-none opacity-30'
               }`}
             >
@@ -111,9 +108,9 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             <button
               type="button"
               onClick={roll}
-              className="rounded-full border border-gold/40 px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold"
+              className="rounded-full border border-white/15 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold hover:border-gold/40"
             >
-              🎲 Otra vez
+              Otra vez
             </button>
           </div>
 
@@ -121,9 +118,9 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-cream/20 text-cream-dim hover:text-cream"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/15 text-cream-dim hover:text-cream"
           >
-            ✕
+            <IconClose size={16} />
           </button>
         </motion.div>
       )}

@@ -1,49 +1,62 @@
 import { motion } from 'framer-motion'
 import type { Category } from '../data/menu'
 import type { ThemeSpec } from './themes'
+import { CategoryIcon } from './Icons'
 
-/** Portada de capítulo: cada categoría abre como un escenario propio. */
+/** Portada de capítulo editorial: numeral fantasma gigante detrás del título. */
 export default function ChapterIntro({ category, theme }: { category: Category; theme: ThemeSpec }) {
   const ink = theme.light
+  const numeral = category.chapter.split(' ')[1] ?? ''
+
   return (
     <motion.div
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.5 }}
-      className="relative flex min-h-[62svh] flex-col items-center justify-center px-6 text-center"
+      className="relative flex min-h-[62svh] flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
-      <motion.p
+      {/* numeral romano fantasma */}
+      <motion.span
         variants={{
-          hidden: { opacity: 0, letterSpacing: '0.6em' },
-          show: { opacity: 1, letterSpacing: '0.38em', transition: { duration: 1 } },
+          hidden: { opacity: 0, scale: 1.1 },
+          show: { opacity: 1, scale: 1, transition: { duration: 1.4 } },
         }}
-        className={`text-[11px] uppercase ${ink ? 'text-ink/50' : 'text-cream-dim'}`}
+        aria-hidden
+        className={`pointer-events-none absolute select-none font-display text-[11rem] font-semibold leading-none sm:text-[15rem] ${
+          ink ? 'text-ink/[0.05]' : 'text-cream/[0.04]'
+        }`}
       >
-        {category.chapter}
-      </motion.p>
+        {numeral}
+      </motion.span>
 
       <motion.span
         variants={{
-          hidden: { opacity: 0, scale: 0.6, y: 12 },
-          show: {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            transition: { type: 'spring' as const, stiffness: 200, damping: 16, delay: 0.15 },
-          },
+          hidden: { opacity: 0, y: 10 },
+          show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
         }}
         aria-hidden
-        className="mt-4 text-5xl motion-safe:animate-bob"
+        className="relative"
+        style={{ color: theme.accent }}
       >
-        {category.emoji}
+        <CategoryIcon id={category.id} size={26} />
       </motion.span>
+
+      <motion.p
+        variants={{
+          hidden: { opacity: 0, letterSpacing: '0.6em' },
+          show: { opacity: 1, letterSpacing: '0.38em', transition: { duration: 1, delay: 0.1 } },
+        }}
+        className={`relative mt-5 text-[10px] font-semibold uppercase ${ink ? 'text-ink/50' : 'text-cream-dim'}`}
+      >
+        {category.chapter}
+      </motion.p>
 
       <motion.h2
         variants={{
           hidden: { opacity: 0, y: 22 },
           show: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.25 } },
         }}
-        className="mt-4 font-display text-4xl leading-tight sm:text-5xl"
+        className="relative mt-3 font-display text-5xl font-semibold leading-tight sm:text-6xl"
         style={{ color: theme.accent }}
       >
         {category.name}
@@ -54,18 +67,17 @@ export default function ChapterIntro({ category, theme }: { category: Category; 
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { duration: 0.8, delay: 0.5 } },
         }}
-        className={`mt-4 max-w-sm font-serif text-lg italic ${ink ? 'text-ink/70' : 'text-cream/75'}`}
+        className={`relative mt-4 max-w-sm font-serif text-lg italic ${ink ? 'text-ink/70' : 'text-cream/75'}`}
       >
         {category.lead}. {category.sub}
       </motion.p>
 
-      {/* filete decorativo, como los recuadros de la carta */}
       <motion.div
         variants={{
           hidden: { scaleX: 0 },
           show: { scaleX: 1, transition: { duration: 0.9, delay: 0.6 } },
         }}
-        className="mt-6 h-px w-40"
+        className="relative mt-7 h-px w-32"
         style={{ background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)` }}
       />
     </motion.div>

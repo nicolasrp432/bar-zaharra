@@ -64,7 +64,7 @@ export default function Intro() {
               initial={{ opacity: 0, letterSpacing: '0.6em' }}
               animate={{ opacity: 1, letterSpacing: '0.42em' }}
               transition={{ delay: 1.1, duration: 1.4 }}
-              className="font-serif text-sm uppercase text-gold"
+              className="text-xs font-semibold uppercase text-gold"
             >
               Taberna
             </motion.p>
@@ -72,7 +72,7 @@ export default function Intro() {
               initial={{ opacity: 0, y: 14, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 1.5, duration: 1.3, ease: 'easeOut' }}
-              className="font-display text-6xl text-cream sm:text-7xl"
+              className="font-display text-6xl font-semibold text-cream sm:text-7xl"
             >
               Zaharra
             </motion.h1>

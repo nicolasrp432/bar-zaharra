@@ -6,9 +6,10 @@ import { Nachos, Patatas, Nuggets } from './Snacks'
 import { Shake, Malteada } from './Drinks'
 
 /**
- * Visual del producto. Intenta cargar la foto real (public/img/products/<id>.jpg);
- * si no existe todavía, muestra la escena ilustrada animada. Así, cuando el bar
- * tenga fotos de verdad basta con soltarlas en esa carpeta.
+ * Visual del producto. Intenta cargar la foto real recortada
+ * (public/img/products/<id>.png, fondo transparente); si no existe todavía,
+ * muestra la escena ilustrada animada. Así, cuando el bar tenga fotos de
+ * verdad basta con soltarlas en esa carpeta.
  */
 export default function ProductScene({ product }: { product: Product }) {
   const [hasPhoto, setHasPhoto] = useState(true)
@@ -19,7 +20,8 @@ export default function ProductScene({ product }: { product: Product }) {
         src={product.image}
         alt={product.name}
         loading="lazy"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain p-6"
+        style={{ filter: 'drop-shadow(0 28px 36px rgb(0 0 0 / 0.5))' }}
         onError={() => setHasPhoto(false)}
       />
     )

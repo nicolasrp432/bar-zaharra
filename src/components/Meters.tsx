@@ -1,24 +1,49 @@
 import type { Meter } from '../data/menu'
 
-/** Comparador visual: 🥩🥩🥩🥩 en lugar de una ficha técnica. */
-export default function Meters({ meters, light }: { meters: Meter[]; light: boolean }) {
+/** Comparador visual: barras finas con el acento del capítulo, sin emojis. */
+export default function Meters({
+  meters,
+  light,
+  accent,
+}: {
+  meters: Meter[]
+  light: boolean
+  accent: string
+}) {
   return (
-    <dl className="space-y-1.5">
+    <dl className="space-y-3">
       {meters.map((m) => (
-        <div key={m.label} className="flex items-baseline justify-between gap-4">
-          <dt
-            className={`text-[11px] uppercase tracking-[0.18em] ${
-              light ? 'text-ink/60' : 'text-cream-dim'
+        <div key={m.label}>
+          <div className="flex items-baseline justify-between gap-4">
+            <dt
+              className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                light ? 'text-ink/55' : 'text-cream-dim'
+              }`}
+            >
+              {m.label}
+            </dt>
+            <dd
+              className="font-display text-xs tabular-nums"
+              style={{ color: accent }}
+              aria-label={`${m.value} de 5`}
+            >
+              {m.value}/5
+            </dd>
+          </div>
+          <div
+            className={`mt-1.5 h-[3px] overflow-hidden rounded-full ${
+              light ? 'bg-ink/10' : 'bg-white/10'
             }`}
+            aria-hidden
           >
-            {m.label}
-          </dt>
-          <dd className="text-base leading-none" aria-label={`${m.value} de 5`}>
-            <span aria-hidden>
-              {m.icon.repeat(m.value)}
-              <span className="opacity-20">{m.icon.repeat(5 - m.value)}</span>
-            </span>
-          </dd>
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${(m.value / 5) * 100}%`,
+                background: `linear-gradient(90deg, color-mix(in srgb, ${accent} 55%, transparent), ${accent})`,
+              }}
+            />
+          </div>
         </div>
       ))}
     </dl>

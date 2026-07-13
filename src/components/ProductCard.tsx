@@ -5,6 +5,7 @@ import { useFavorites } from '../hooks/useFavorites'
 import ProductScene from './scenes/ProductScene'
 import Meters from './Meters'
 import Smoke from './fx/Smoke'
+import { IconHeart, IconStar } from './Icons'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
@@ -48,37 +49,49 @@ export default function ProductCard({ product, theme }: { product: Product; them
         </div>
         {theme.smoke && <Smoke />}
 
-        {/* badges */}
+        {/* badges tipográficos */}
         <div className="absolute left-3 top-3 flex max-w-[70%] flex-wrap gap-1.5">
           {product.badges.map((b) => (
             <span
               key={b}
-              className="rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold backdrop-blur-sm"
+              className="inline-flex items-center gap-1.5 rounded-full border border-gold/25 bg-ink/75 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-gold backdrop-blur-sm"
             >
+              {/más pedid/i.test(b) && <IconStar size={9} />}
               {b}
             </span>
           ))}
         </div>
 
         {/* corazón */}
-        <button
+        <motion.button
           type="button"
           onClick={() => toggle(product.id)}
+          whileTap={{ scale: 0.82 }}
           aria-pressed={fav}
           aria-label={fav ? `Quitar ${product.name} de favoritos` : `Añadir ${product.name} a favoritos`}
-          className={`absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full text-xl backdrop-blur-sm transition-transform active:scale-90 ${
-            fav ? 'bg-coral/90 text-white' : 'bg-ink/70 text-cream/80'
+          className={`absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full border backdrop-blur-sm transition-colors ${
+            fav
+              ? 'border-coral/40 bg-coral/90 text-white'
+              : 'border-white/15 bg-ink/60 text-cream/75 hover:text-cream'
           }`}
         >
-          {fav ? '♥' : '♡'}
-        </button>
+          <motion.span
+            key={String(fav)}
+            initial={{ scale: 0.6 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+            className="grid place-items-center"
+          >
+            <IconHeart size={18} filled={fav} />
+          </motion.span>
+        </motion.button>
       </motion.div>
 
       {/* texto */}
       <motion.div variants={textStagger} className="mt-7">
         <motion.h3
           variants={fadeUp}
-          className="font-display text-3xl leading-tight sm:text-4xl"
+          className="font-display text-3xl font-semibold leading-tight sm:text-4xl"
           style={{ color: ink ? '#1c1610' : '#f3e9d2' }}
         >
           {product.name}
@@ -97,8 +110,8 @@ export default function ProductCard({ product, theme }: { product: Product; them
             <motion.li
               key={ing}
               variants={fadeUp}
-              className={`rounded-full border px-3 py-1 text-xs uppercase tracking-[0.12em] ${
-                ink ? 'border-ink/25 text-ink/75' : 'border-gold/30 text-cream/85'
+              className={`rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] ${
+                ink ? 'border-ink/20 text-ink/70' : 'border-white/12 text-cream/80'
               }`}
             >
               {ing}
@@ -108,11 +121,11 @@ export default function ProductCard({ product, theme }: { product: Product; them
 
         {/* precio */}
         <motion.p variants={fadeUp} className="mt-6 flex items-baseline gap-3">
-          <span className="font-display text-5xl" style={{ color: theme.accent }}>
+          <span className="font-display text-5xl font-semibold" style={{ color: theme.accent }}>
             {product.price}
           </span>
           <span
-            className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
+            className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${
               ink ? 'text-ink/55' : 'text-cream-dim'
             }`}
           >
@@ -122,17 +135,17 @@ export default function ProductCard({ product, theme }: { product: Product; them
 
         {/* medidores + protagonista */}
         <motion.div variants={fadeUp} className="mt-6 grid gap-5 sm:grid-cols-2">
-          <Meters meters={product.meters} light={ink} />
+          <Meters meters={product.meters} light={ink} accent={theme.accent} />
           <div
             className={`rounded-xl border p-4 ${
-              ink ? 'border-ink/15 bg-white/40' : 'border-gold/20 bg-white/[0.04]'
+              ink ? 'border-ink/12 bg-white/40' : 'border-white/10 bg-white/[0.03]'
             }`}
           >
-            <p className={`text-[10px] uppercase tracking-[0.22em] ${ink ? 'text-ink/50' : 'text-cream-dim'}`}>
+            <p className={`text-[9px] font-semibold uppercase tracking-[0.24em] ${ink ? 'text-ink/50' : 'text-cream-dim'}`}>
               El protagonista
             </p>
-            <p className="mt-1 text-lg font-semibold" style={{ color: theme.accent }}>
-              {product.protagonist.emoji} {product.protagonist.name}
+            <p className="mt-1.5 font-display text-lg font-semibold" style={{ color: theme.accent }}>
+              {product.protagonist.name}
             </p>
             <p className={`mt-1 text-sm leading-relaxed ${ink ? 'text-ink/75' : 'text-cream/80'}`}>
               {product.protagonist.text}
@@ -143,8 +156,11 @@ export default function ProductCard({ product, theme }: { product: Product; them
         {product.pairing && (
           <motion.p
             variants={fadeUp}
-            className="mt-5 font-script text-2xl"
-            style={{ color: ink ? '#8a4a2b' : '#d9b36a' }}
+            className="mt-6 border-l pl-4 font-serif text-lg italic"
+            style={{
+              color: ink ? '#8a4a2b' : '#d9b36a',
+              borderColor: ink ? 'rgb(138 74 43 / 0.3)' : 'rgb(217 179 106 / 0.3)',
+            }}
           >
             {product.pairing}
           </motion.p>

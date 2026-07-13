@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { findProduct, type Product } from '../data/menu'
+import { IconClose } from './Icons'
 
 type Company = 'solo' | 'amigos' | 'pareja' | 'niños'
 
@@ -65,11 +66,11 @@ function recommend(company: Company, hungry: boolean, meat: boolean): Result {
   }
 }
 
-const COMPANY_OPTIONS: { id: Company; label: string; emoji: string }[] = [
-  { id: 'solo', label: 'Solo', emoji: '🧍' },
-  { id: 'amigos', label: 'Con amigos', emoji: '🍻' },
-  { id: 'pareja', label: 'En pareja', emoji: '💛' },
-  { id: 'niños', label: 'Con niños', emoji: '🧒' },
+const COMPANY_OPTIONS: { id: Company; label: string }[] = [
+  { id: 'solo', label: 'Vengo solo' },
+  { id: 'amigos', label: 'Con amigos' },
+  { id: 'pareja', label: 'En pareja' },
+  { id: 'niños', label: 'Con niños' },
 ]
 
 /** Quiz de tres preguntas a pantalla completa: ¿con quién, cuánta hambre, carne? */
@@ -88,16 +89,16 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
     reset()
   }
 
-  const Option = ({ label, emoji, onPick }: { label: string; emoji: string; onPick: () => void }) => (
+  const Option = ({ index, label, onPick }: { index: number; label: string; onPick: () => void }) => (
     <button
       type="button"
       onClick={onPick}
-      className="brass-frame flex w-full items-center gap-4 rounded-2xl bg-ink-3/80 px-5 py-4 text-left transition-transform hover:scale-[1.02] active:scale-95"
+      className="brass-frame group flex w-full items-baseline gap-4 rounded-2xl bg-ink-3/80 px-5 py-4 text-left transition-transform hover:scale-[1.02] active:scale-95"
     >
-      <span className="text-2xl" aria-hidden>
-        {emoji}
+      <span className="font-display text-xs font-semibold text-gold/60 transition-colors group-hover:text-gold">
+        {String(index).padStart(2, '0')}
       </span>
-      <span className="font-serif text-lg text-cream">{label}</span>
+      <span className="font-serif text-xl text-cream">{label}</span>
     </button>
   )
 
@@ -114,20 +115,22 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
           aria-label="¿Qué pido?"
         >
           <div className="mx-auto flex min-h-full w-full max-w-md flex-col justify-center px-6 py-16">
-            <p className="text-center text-xs uppercase tracking-[0.4em] text-cream-dim">
-              {result ? 'La casa recomienda' : `Pregunta ${step + 1} de 3`}
+            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.4em] text-cream-dim">
+              {result ? 'La casa recomienda' : `Pregunta ${step + 1} — 3`}
             </p>
 
             <AnimatePresence mode="wait">
               {!result && step === 0 && (
                 <motion.div key="q1" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-3xl text-cream">¿Cómo vienes hoy?</h3>
-                  <div className="mt-6 space-y-3">
-                    {COMPANY_OPTIONS.map((o) => (
+                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                    ¿Cómo vienes hoy?
+                  </h3>
+                  <div className="mt-7 space-y-3">
+                    {COMPANY_OPTIONS.map((o, i) => (
                       <Option
                         key={o.id}
+                        index={i + 1}
                         label={o.label}
-                        emoji={o.emoji}
                         onPick={() => {
                           setCompany(o.id)
                           setStep(1)
@@ -140,20 +143,24 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
 
               {!result && step === 1 && (
                 <motion.div key="q2" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-3xl text-cream">¿Tienes mucha hambre?</h3>
-                  <div className="mt-6 space-y-3">
-                    <Option label="Mucha. Vengo en serio" emoji="🔥" onPick={() => { setHungry(true); setStep(2) }} />
-                    <Option label="Solo algo de picar" emoji="🤏" onPick={() => { setHungry(false); setStep(2) }} />
+                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                    ¿Tienes mucha hambre?
+                  </h3>
+                  <div className="mt-7 space-y-3">
+                    <Option index={1} label="Mucha. Vengo en serio" onPick={() => { setHungry(true); setStep(2) }} />
+                    <Option index={2} label="Solo algo de picar" onPick={() => { setHungry(false); setStep(2) }} />
                   </div>
                 </motion.div>
               )}
 
               {!result && step === 2 && (
                 <motion.div key="q3" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-3xl text-cream">¿Te apetece carne?</h3>
-                  <div className="mt-6 space-y-3">
-                    <Option label="Sí, claro" emoji="🥩" onPick={() => setResult(recommend(company, hungry, true))} />
-                    <Option label="Hoy no" emoji="🌊" onPick={() => setResult(recommend(company, hungry, false))} />
+                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                    ¿Te apetece carne?
+                  </h3>
+                  <div className="mt-7 space-y-3">
+                    <Option index={1} label="Sí, claro" onPick={() => setResult(recommend(company, hungry, true))} />
+                    <Option index={2} label="Hoy no" onPick={() => setResult(recommend(company, hungry, false))} />
                   </div>
                 </motion.div>
               )}
@@ -166,28 +173,32 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
                   transition={{ type: 'spring', stiffness: 170, damping: 16 }}
                   className="mt-6 text-center"
                 >
-                  <h3 className="font-display text-4xl leading-tight text-gold">{result.main.name}</h3>
-                  <p className="mt-1 font-display text-2xl text-ember">{result.main.price}</p>
+                  <h3 className="font-display text-5xl font-semibold leading-tight text-gold">
+                    {result.main.name}
+                  </h3>
+                  <p className="mt-2 font-display text-2xl font-semibold text-ember">{result.main.price}</p>
                   {result.side && (
                     <p className="mt-3 font-serif text-lg italic text-cream/85">
                       + {result.side.name} · {result.side.price}
                     </p>
                   )}
-                  <p className="mt-4 font-script text-2xl text-cream-dim">{result.phrase}</p>
-                  <div className="mt-7 flex flex-col items-center gap-3">
+                  <p className="mx-auto mt-5 max-w-xs font-serif text-lg italic text-cream-dim">
+                    {result.phrase}
+                  </p>
+                  <div className="mt-8 flex flex-col items-center gap-3">
                     <a
                       href={`#${result.main.id}`}
                       onClick={close}
-                      className="rounded-full bg-gold px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink"
+                      className="rounded-full bg-gold px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink"
                     >
                       Verlo en la carta
                     </a>
                     <button
                       type="button"
                       onClick={reset}
-                      className="rounded-full border border-gold/40 px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold"
+                      className="rounded-full border border-white/15 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold hover:border-gold/40"
                     >
-                      ← Volver a empezar
+                      Volver a empezar
                     </button>
                   </div>
                 </motion.div>
@@ -199,9 +210,9 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
             type="button"
             onClick={close}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-cream/20 text-cream-dim hover:text-cream"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/15 text-cream-dim hover:text-cream"
           >
-            ✕
+            <IconClose size={16} />
           </button>
         </motion.div>
       )}

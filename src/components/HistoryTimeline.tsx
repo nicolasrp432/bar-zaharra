@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { IconStar } from './Icons'
 
 /** Hitos editables de la historia del local. */
 const MILESTONES = [
@@ -32,7 +33,7 @@ export default function HistoryTimeline() {
         <p className="text-center text-[11px] uppercase tracking-[0.4em] text-cream-dim">
           Nuestra historia
         </p>
-        <h2 className="mt-3 text-center font-display text-4xl text-gold">Desde 2002</h2>
+        <h2 className="mt-3 text-center font-display text-4xl font-semibold text-gold">Desde 2002</h2>
 
         <div className="relative mt-12">
           <span className="absolute left-[19px] top-1 h-full w-px bg-gold/25" aria-hidden />
@@ -50,7 +51,7 @@ export default function HistoryTimeline() {
                   aria-hidden
                   className="brass-frame z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink-2 text-xs font-bold text-gold"
                 >
-                  {m.year === 'Hoy' ? '★' : m.year.slice(2)}
+                  {m.year === 'Hoy' ? <IconStar size={13} /> : m.year.slice(2)}
                 </span>
                 <div>
                   <p className="font-display text-xl text-cream">

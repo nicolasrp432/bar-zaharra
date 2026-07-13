@@ -44,14 +44,15 @@ puede desplegar gratis en Vercel/Netlify/GitHub Pages.
 ## Cómo poner las fotos reales
 
 Hoy cada plato se dibuja con una **escena ilustrada animada** (no hay fotos todavía). En cuanto
-tengas fotos de verdad, solo hay que soltarlas en `public/img/`:
+tengas fotos de verdad, recórtalas (fondo transparente) y suéltalas en `public/img/`:
 
-- `public/img/hero.jpg` — la foto de portada (la hamburguesa estrella).
-- `public/img/products/<id>.jpg` — una por plato, p. ej. `burger-casa.jpg`,
-  `batido-mango.jpg`. Los `id` válidos están en `src/data/menu.ts`.
+- `public/img/hero.png` — la foto de portada (la hamburguesa estrella).
+- `public/img/products/<id>.png` — una por plato, p. ej. `burger-casa.png`,
+  `batido-mango.png`. Los `id` válidos están en `src/data/menu.ts`.
 
-Si el archivo existe, la web lo usa automáticamente; si no, muestra la ilustración. No hay que
-tocar código.
+Formato: **PNG con fondo transparente**, ~1200px de ancho. El plato aparece flotando sobre el
+resplandor cálido de su tarjeta, con sombra proyectada. Si el archivo existe, la web lo usa
+automáticamente; si no, muestra la ilustración. No hay que tocar código.
 
 ## Cómo editar la carta
 
