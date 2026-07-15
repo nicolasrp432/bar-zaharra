@@ -499,6 +499,19 @@ export const productsByCategory = (id: CategoryId): Product[] =>
 export const findProduct = (id: string): Product | undefined =>
   PRODUCTS.find((p) => p.id === id)
 
+/** Primer importe de un precio ('8,50€' → 8.5; '6 uds 5€ · 12 uds 10€' → 5). */
+function firstAmount(price: string): number {
+  const m = price.match(/\d+(?:,\d+)?/)
+  return m ? parseFloat(m[0].replace(',', '.')) : 0
+}
+
+/** Resumen para el índice: nº de platos y precio "desde" de la categoría. */
+export function categorySummary(id: CategoryId): { count: number; from: string } {
+  const items = productsByCategory(id)
+  const min = Math.min(...items.map((p) => firstAmount(p.price)))
+  return { count: items.length, from: `${min.toLocaleString('es-ES')}€` }
+}
+
 /** Franja horaria → sugerencia contextual de la casa. */
 export function timeSuggestion(hour: number): {
   categoryId: CategoryId

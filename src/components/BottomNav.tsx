@@ -1,92 +1,47 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { CATEGORIES } from '../data/menu'
 import { useFavorites } from '../hooks/useFavorites'
-import { CategoryIcon, IconHeart, IconSparkle } from './Icons'
-
-const SHORT_NAMES: Record<string, string> = {
-  compartir: 'Compartir',
-  raciones: 'Raciones',
-  hamburguesas: 'Burgers',
-  bocatas: 'Bocatas',
-  batidos: 'Batidos',
-  malteadas: 'Malteadas',
-}
+import { IconHeart, IconMenu, IconSparkle } from './Icons'
 
 /**
- * Barra inferior fija estilo app: iconos de línea propios con scroll-spy;
- * el capítulo activo se expande mostrando su nombre. Es toda la navegación
- * que hay: el resto es scroll.
+ * Píldora inferior mínima: índice, favoritos y sorpréndeme. La navegación
+ * por capítulos vive en el índice a pantalla completa (MenuIndex).
  */
 export default function BottomNav({
+  onIndex,
   onFavorites,
   onSurprise,
 }: {
+  onIndex: () => void
   onFavorites: () => void
   onSurprise: () => void
 }) {
   const { favorites } = useFavorites()
-  const [active, setActive] = useState<string | null>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id)
-      },
-      { rootMargin: '-40% 0px -50% 0px' },
-    )
-    for (const c of CATEGORIES) {
-      const el = document.getElementById(c.id)
-      if (el) observer.observe(el)
-    }
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <nav
-      aria-label="Capítulos de la carta"
+      aria-label="Navegación de la carta"
       className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))]"
     >
-      <div className="flex items-center gap-0.5 rounded-full border border-white/10 bg-ink/85 px-2 py-1.5 shadow-[0_16px_48px_-12px_rgb(0_0_0/0.8)] backdrop-blur-2xl">
-        {CATEGORIES.map((c) => {
-          const isActive = active === c.id
-          return (
-            <motion.a
-              key={c.id}
-              layout
-              href={`#${c.id}`}
-              aria-label={c.name}
-              aria-current={isActive ? 'true' : undefined}
-              transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-              className={`flex h-10 items-center justify-center gap-2 rounded-full px-2.5 transition-colors ${
-                isActive ? 'bg-white/[0.07] text-gold' : 'text-cream/45 hover:text-cream/80'
-              }`}
-            >
-              <CategoryIcon id={c.id} size={19} />
-              {isActive && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.1 } }}
-                  className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.22em]"
-                >
-                  {SHORT_NAMES[c.id]}
-                </motion.span>
-              )}
-            </motion.a>
-          )
-        })}
+      <div className="flex items-center gap-1 rounded-full border border-white/10 bg-ink/85 px-2 py-1.5 shadow-[0_16px_48px_-12px_rgb(0_0_0/0.8)] backdrop-blur-2xl">
+        <button
+          type="button"
+          onClick={onIndex}
+          className="flex h-10 items-center gap-2.5 rounded-full bg-white/[0.06] px-5 text-cream/90 transition-colors hover:text-gold"
+        >
+          <IconMenu size={17} />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.24em]">Índice</span>
+        </button>
 
-        <span className="mx-1.5 h-5 w-px bg-white/10" aria-hidden />
+        <span className="mx-1 h-5 w-px bg-white/10" aria-hidden />
 
         <button
           type="button"
           onClick={onFavorites}
           aria-label={`Tus favoritos (${favorites.length})`}
-          className="relative grid h-10 w-10 place-items-center rounded-full text-cream/60 transition-colors hover:text-coral"
+          className="relative grid h-10 w-11 place-items-center rounded-full text-cream/60 transition-colors hover:text-coral"
         >
-          <IconHeart size={19} filled={favorites.length > 0} className={favorites.length > 0 ? 'text-coral' : undefined} />
+          <IconHeart size={18} filled={favorites.length > 0} className={favorites.length > 0 ? 'text-coral' : undefined} />
           {favorites.length > 0 && (
-            <span className="absolute right-0 top-0 grid h-4 min-w-4 place-items-center rounded-full border border-ink bg-coral px-1 text-[9px] font-bold text-white">
+            <span className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full border border-ink bg-coral px-1 text-[9px] font-bold text-white">
               {favorites.length}
             </span>
           )}
@@ -95,9 +50,9 @@ export default function BottomNav({
           type="button"
           onClick={onSurprise}
           aria-label="Sorpréndeme"
-          className="grid h-10 w-10 place-items-center rounded-full text-gold/80 transition-colors hover:text-gold"
+          className="grid h-10 w-11 place-items-center rounded-full text-gold/80 transition-colors hover:text-gold"
         >
-          <IconSparkle size={19} />
+          <IconSparkle size={18} />
         </button>
       </div>
     </nav>

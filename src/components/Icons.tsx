@@ -127,6 +127,12 @@ export const IconFlame = (p: P) => (
   </svg>
 )
 
+export const IconMenu = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M4 9h16M4 15h10" />
+  </svg>
+)
+
 const CATEGORY_ICONS: Record<CategoryId, (p: P) => ReactElement> = {
   compartir: IconShare,
   raciones: IconFries,

@@ -4,6 +4,8 @@ import { FavoritesProvider } from './hooks/useFavorites'
 import { THEMES } from './components/themes'
 import Intro from './components/Intro'
 import Hero from './components/Hero'
+import TopBar from './components/TopBar'
+import MenuIndex from './components/MenuIndex'
 import SmartBanner from './components/SmartBanner'
 import ChapterIntro from './components/ChapterIntro'
 import ProductCard from './components/ProductCard'
@@ -17,10 +19,12 @@ export default function App() {
   const [surpriseOpen, setSurpriseOpen] = useState(false)
   const [recommenderOpen, setRecommenderOpen] = useState(false)
   const [favoritesOpen, setFavoritesOpen] = useState(false)
+  const [indexOpen, setIndexOpen] = useState(false)
 
   return (
     <FavoritesProvider>
       <Intro />
+      <TopBar onIndex={() => setIndexOpen(true)} />
 
       <main>
         <Hero
@@ -63,6 +67,13 @@ export default function App() {
       </main>
 
       <BottomNav
+        onIndex={() => setIndexOpen(true)}
+        onFavorites={() => setFavoritesOpen(true)}
+        onSurprise={() => setSurpriseOpen(true)}
+      />
+      <MenuIndex
+        open={indexOpen}
+        onClose={() => setIndexOpen(false)}
         onFavorites={() => setFavoritesOpen(true)}
         onSurprise={() => setSurpriseOpen(true)}
       />

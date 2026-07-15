@@ -14,7 +14,7 @@ export default function SmartBanner() {
   if (dismissed) return null
 
   return (
-    <div className="sticky top-3 z-40 flex justify-center px-4">
+    <div className="sticky top-16 z-40 flex justify-center px-4">
       <div className="flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-ink-2/95 py-1.5 pl-4 pr-1.5 shadow-lg shadow-black/40 backdrop-blur-xl">
         <a
           href={`#${category.id}`}

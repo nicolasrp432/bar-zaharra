@@ -41,6 +41,14 @@ Stack: React 19 + Vite + TypeScript + Tailwind CSS 4 + Framer Motion. Fuentes au
 (@fontsource: Rye, Playfair Display, Work Sans, Caveat). Sin backend: todo es estático y se
 puede desplegar gratis en Vercel/Netlify/GitHub Pages.
 
+## Cómo enviar las fotos
+
+Dos vías, cualquiera vale:
+
+1. **Adjuntarlas al chat de Claude** (aunque tengan fondo): se recortan, se optimizan y se
+   integran en el repositorio con el nombre correcto de cada plato.
+2. **Subirlas directamente al repositorio** siguiendo el formato de abajo.
+
 ## Cómo poner las fotos reales
 
 Hoy cada plato se dibuja con una **escena ilustrada animada** (no hay fotos todavía). En cuanto
