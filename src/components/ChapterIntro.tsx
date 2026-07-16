@@ -1,63 +1,43 @@
 import { motion } from 'framer-motion'
 import type { Category } from '../data/menu'
-import type { ThemeSpec } from './themes'
 import { CategoryIcon } from './Icons'
 
-/** Portada de capítulo editorial: numeral fantasma gigante detrás del título. */
-export default function ChapterIntro({ category, theme }: { category: Category; theme: ThemeSpec }) {
-  const ink = theme.light
-  const numeral = category.chapter.split(' ')[1] ?? ''
-
+/** Cabecera de sección: compacta, editorial, con el acento del capítulo. */
+export default function ChapterIntro({ category, accent }: { category: Category; accent: string }) {
   return (
     <motion.div
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.5 }}
-      className="relative flex min-h-[62svh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+      className="flex flex-col items-center pb-4 pt-20 text-center"
     >
-      {/* numeral romano fantasma */}
       <motion.span
         variants={{
-          hidden: { opacity: 0, scale: 1.1 },
-          show: { opacity: 1, scale: 1, transition: { duration: 1.4 } },
+          hidden: { opacity: 0, y: 8 },
+          show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
         }}
         aria-hidden
-        className={`pointer-events-none absolute select-none font-display text-[11rem] font-semibold leading-none sm:text-[15rem] ${
-          ink ? 'text-ink/[0.05]' : 'text-cream/[0.04]'
-        }`}
+        style={{ color: accent }}
       >
-        {numeral}
-      </motion.span>
-
-      <motion.span
-        variants={{
-          hidden: { opacity: 0, y: 10 },
-          show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
-        }}
-        aria-hidden
-        className="relative"
-        style={{ color: theme.accent }}
-      >
-        <CategoryIcon id={category.id} size={26} />
+        <CategoryIcon id={category.id} size={22} />
       </motion.span>
 
       <motion.p
         variants={{
-          hidden: { opacity: 0, letterSpacing: '0.6em' },
-          show: { opacity: 1, letterSpacing: '0.38em', transition: { duration: 1, delay: 0.1 } },
+          hidden: { opacity: 0, letterSpacing: '0.55em' },
+          show: { opacity: 1, letterSpacing: '0.38em', transition: { duration: 0.9, delay: 0.1 } },
         }}
-        className={`relative mt-5 text-[10px] font-semibold uppercase ${ink ? 'text-ink/50' : 'text-cream-dim'}`}
+        className="mt-4 text-[9px] font-bold uppercase text-ink/45"
       >
         {category.chapter}
       </motion.p>
 
       <motion.h2
         variants={{
-          hidden: { opacity: 0, y: 22 },
-          show: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.25 } },
+          hidden: { opacity: 0, y: 16 },
+          show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
         }}
-        className="relative mt-3 font-display text-5xl font-semibold leading-tight sm:text-6xl"
-        style={{ color: theme.accent }}
+        className="mt-2 font-display text-5xl font-medium text-ink"
       >
         {category.name}
       </motion.h2>
@@ -65,9 +45,9 @@ export default function ChapterIntro({ category, theme }: { category: Category; 
       <motion.p
         variants={{
           hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.8, delay: 0.5 } },
+          show: { opacity: 1, transition: { duration: 0.7, delay: 0.4 } },
         }}
-        className={`relative mt-4 max-w-sm font-serif text-lg italic ${ink ? 'text-ink/70' : 'text-cream/75'}`}
+        className="mt-2.5 max-w-sm font-serif text-lg italic text-ink/60"
       >
         {category.lead}. {category.sub}
       </motion.p>
@@ -75,10 +55,10 @@ export default function ChapterIntro({ category, theme }: { category: Category; 
       <motion.div
         variants={{
           hidden: { scaleX: 0 },
-          show: { scaleX: 1, transition: { duration: 0.9, delay: 0.6 } },
+          show: { scaleX: 1, transition: { duration: 0.8, delay: 0.5 } },
         }}
-        className="relative mt-7 h-px w-32"
-        style={{ background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)` }}
+        className="mt-6 h-px w-24"
+        style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
       />
     </motion.div>
   )

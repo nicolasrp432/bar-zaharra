@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/cormorant-garamond": "^5.2.6",
     "@fontsource-variable/manrope": "^5.2.8",
     "framer-motion": "^12.9.2",
     "react": "^19.1.0",

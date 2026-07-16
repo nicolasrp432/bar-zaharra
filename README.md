@@ -1,8 +1,7 @@
-# Taberna Zaharra · La carta que cobra vida
+# Taberna Zaharra · Carta digital
 
-Carta digital inmersiva para **Taberna Zaharra** (desde 2002). Pensada para el QR de la mesa:
-al abrirla no aparece una lista ni un PDF, sino un recorrido — intro cinematográfica, capítulos
-con identidad propia por categoría y cada plato contando su historia.
+Carta digital para **Taberna Zaharra** (desde 2002), pensada para el QR de la mesa: un menú
+claro y elegante que da la información al momento y ayuda a elegir sin fricción.
 
 **🌐 En producción: https://nicolasrp432.github.io/bar-zaharra/** — cada push a `main`
 redespliega automáticamente (workflow `.github/workflows/deploy.yml`, publica en la rama
@@ -10,24 +9,20 @@ redespliega automáticamente (workflow `.github/workflows/deploy.yml`, publica e
 
 ## La experiencia
 
-- **Intro cinematográfica** — pantalla negra, una luz cálida se enciende sobre la madera y aparece
-  el logotipo. Una vez por sesión, con botón *Saltar* y respeto a `prefers-reduced-motion`.
-- **Hero** — bodegón oscuro y cálido de la Burger de la Casa con humo, grano de película y el
-  mensaje de la casa: *"Hecho al momento. Como debe ser."*
-- **La carta como recorrido** — seis capítulos (Para compartir → Raciones → Hamburguesas →
-  Bocatas → Batidos → Malteadas). Los capítulos calientes son oscuros, de brasa y latón; batidos
-  y malteadas rompen a claro y fresco.
-- **Tarjetas inmersivas** — el plato se monta capa a capa al hacer scroll (pan → carne → bacon →
-  huevo…), después ingredientes, precio grande, medidores visuales (🥩🧀🌶️), el bloque
-  **"El protagonista"** y el maridaje recomendado.
-- **❤️ Favoritos** — persistentes en el dispositivo (localStorage), con cajón inferior para
-  cantarle la comanda al camarero.
-- **✨ Sorpréndeme** — la casa elige por ti con una ruleta. *"Hoy deberías pedir esto."*
-- **🍽 ¿Qué pido?** — recomendador de 3 preguntas (¿cómo vienes? ¿mucha hambre? ¿carne?).
-- **Menú inteligente** — sugerencia según la hora (mañana: bocatas · mediodía: hamburguesas ·
-  tarde: batidos · noche: para compartir).
-- **Historia** — línea de tiempo 2002 → hoy (hitos editables en `src/components/HistoryTimeline.tsx`).
-- **Navegación tipo app** — solo scroll y una barra inferior con scroll-spy. Sin menús.
+Carta clara y premium, tipo *fine dining*: papel crema, tipografía Cormorant Garamond y solo
+iconos de línea como detalle gráfico. Sin imágenes: la información manda.
+
+- **Portada**: el logotipo tipográfico de la casa — TABERNA · Zaharra · Desde 2002 — con
+  entrada suave, el lema *"Hecho al momento. Como debe ser."* y dos acciones: Ver la carta
+  y Ayúdame a elegir.
+- **La carta como menú legible**: entradas clásicas con línea de puntos entre plato y precio,
+  ingredientes en versalitas y un desplegable "Detalle" con la historia, medidores (n/5),
+  "El protagonista" y el maridaje.
+- **Navegación**: barra superior con capítulo activo + índice editorial a pantalla completa
+  (capítulos, nº de platos, precio "desde") + píldora inferior de 3 acciones.
+- **Ayudas para elegir**: ❤ favoritos persistentes, Sorpréndeme (ruleta tipográfica),
+  recomendador de 3 preguntas y sugerencia según la hora del día.
+- **Historia** 2002 → hoy y cierre "¡Gracias por venir!".
 
 ## Desarrollo
 
@@ -37,30 +32,7 @@ npm run dev       # servidor local
 npm run build     # comprobación de tipos + build de producción (dist/)
 ```
 
-Stack: React 19 + Vite + TypeScript + Tailwind CSS 4 + Framer Motion. Fuentes autoalojadas
-(@fontsource: Rye, Playfair Display, Work Sans, Caveat). Sin backend: todo es estático y se
-puede desplegar gratis en Vercel/Netlify/GitHub Pages.
-
-## Cómo enviar las fotos
-
-Dos vías, cualquiera vale:
-
-1. **Adjuntarlas al chat de Claude** (aunque tengan fondo): se recortan, se optimizan y se
-   integran en el repositorio con el nombre correcto de cada plato.
-2. **Subirlas directamente al repositorio** siguiendo el formato de abajo.
-
-## Cómo poner las fotos reales
-
-Hoy cada plato se dibuja con una **escena ilustrada animada** (no hay fotos todavía). En cuanto
-tengas fotos de verdad, recórtalas (fondo transparente) y suéltalas en `public/img/`:
-
-- `public/img/hero.png` — la foto de portada (la hamburguesa estrella).
-- `public/img/products/<id>.png` — una por plato, p. ej. `burger-casa.png`,
-  `batido-mango.png`. Los `id` válidos están en `src/data/menu.ts`.
-
-Formato: **PNG con fondo transparente**, ~1200px de ancho. El plato aparece flotando sobre el
-resplandor cálido de su tarjeta, con sombra proyectada. Si el archivo existe, la web lo usa
-automáticamente; si no, muestra la ilustración. No hay que tocar código.
+Stack: React 19 + Vite + TypeScript + Tailwind CSS 4 + Framer Motion. Fuentes autoalojadas (Cormorant Garamond + Manrope). Sin backend: todo es estático.
 
 ## Cómo editar la carta
 

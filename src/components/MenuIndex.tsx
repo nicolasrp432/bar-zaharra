@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { CATEGORIES, categorySummary } from '../data/menu'
-import { THEMES } from './themes'
+import { ACCENTS } from './themes'
 import { useActiveChapter } from '../hooks/useActiveChapter'
 import { useFavorites } from '../hooks/useFavorites'
 import { IconArrowRight, IconClose, IconHeart, IconSparkle } from './Icons'
@@ -41,7 +41,7 @@ export default function MenuIndex({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="wood fixed inset-0 z-[70] flex flex-col overflow-y-auto"
+          className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-paper"
           role="dialog"
           aria-modal="true"
           aria-label="Índice de la carta"
@@ -49,20 +49,20 @@ export default function MenuIndex({
           <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-6 pb-10 pt-5">
             {/* cabecera */}
             <div className="flex items-center justify-between">
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.32em] text-gold">
+              <p className="font-display text-lg font-semibold uppercase tracking-[0.18em] text-ink">
                 Zaharra
               </p>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Cerrar índice"
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/12 text-cream-dim transition-colors hover:text-cream"
+                className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/60 transition-colors hover:text-ink"
               >
                 <IconClose size={16} />
               </button>
             </div>
 
-            <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.4em] text-cream-dim">
+            <p className="mt-10 text-[9px] font-bold uppercase tracking-[0.4em] text-ink/45">
               La carta
             </p>
 
@@ -72,36 +72,36 @@ export default function MenuIndex({
               initial="hidden"
               animate="show"
               aria-label="Capítulos"
-              className="mt-4 flex-1"
+              className="mt-3 flex-1"
             >
               {CATEGORIES.map((c) => {
                 const { count, from } = categorySummary(c.id)
                 const numeral = c.chapter.split(' ')[1]
                 const isActive = active === c.id
-                const accent = THEMES[c.theme].accent
+                const accent = ACCENTS[c.theme]
                 return (
                   <motion.a
                     key={c.id}
                     variants={row}
                     href={`#${c.id}`}
                     onClick={onClose}
-                    className="group flex items-baseline gap-4 border-b border-white/[0.07] py-5"
+                    className="group flex items-baseline gap-4 border-b border-ink/10 py-5"
                   >
                     <span
-                      className="w-8 shrink-0 font-display text-xs font-semibold"
-                      style={{ color: isActive ? accent : 'rgb(203 191 164 / 0.55)' }}
+                      className="w-7 shrink-0 font-display text-sm font-semibold"
+                      style={{ color: isActive ? accent : 'rgb(36 28 18 / 0.4)' }}
                     >
                       {numeral}
                     </span>
                     <span
-                      className="font-display text-3xl font-semibold leading-none transition-colors sm:text-4xl"
-                      style={{ color: isActive ? accent : '#f3e9d2' }}
+                      className="font-display text-4xl font-medium leading-none transition-colors sm:text-5xl"
+                      style={{ color: isActive ? accent : '#241c12' }}
                     >
                       {c.name}
                     </span>
-                    <span className="ml-auto shrink-0 text-right text-[10px] font-medium uppercase tracking-[0.16em] text-cream-dim">
+                    <span className="ml-auto shrink-0 text-right text-[9.5px] font-bold uppercase tracking-[0.16em] text-ink/45">
                       {count} {count === 1 ? 'plato' : 'platos'}
-                      <span className="block text-gold/80">desde {from}</span>
+                      <span className="block text-gold">desde {from}</span>
                     </span>
                     <IconArrowRight
                       size={16}
@@ -124,9 +124,9 @@ export default function MenuIndex({
                   onClose()
                   onFavorites()
                 }}
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-cream/85 transition-colors hover:border-coral/40 hover:text-coral"
+                className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/75 transition-colors hover:border-rust hover:text-rust"
               >
-                <IconHeart size={14} filled={favorites.length > 0} className={favorites.length > 0 ? 'text-coral' : undefined} />
+                <IconHeart size={14} filled={favorites.length > 0} className={favorites.length > 0 ? 'text-rust' : undefined} />
                 Favoritos{favorites.length > 0 ? ` · ${favorites.length}` : ''}
               </button>
               <button
@@ -135,7 +135,7 @@ export default function MenuIndex({
                   onClose()
                   onSurprise()
                 }}
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold/40"
+                className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-gold transition-colors hover:border-gold"
               >
                 <IconSparkle size={14} />
                 Sorpréndeme
@@ -145,7 +145,7 @@ export default function MenuIndex({
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 0.6 } }}
-              className="mt-8 text-center text-[9px] font-semibold uppercase tracking-[0.3em] text-cream/35"
+              className="mt-8 text-center text-[9px] font-bold uppercase tracking-[0.3em] text-ink/30"
             >
               Hecho al momento · Desde 2002
             </motion.p>

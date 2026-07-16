@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { CATEGORIES, productsByCategory } from './data/menu'
 import { FavoritesProvider } from './hooks/useFavorites'
-import { THEMES } from './components/themes'
-import Intro from './components/Intro'
+import { ACCENTS } from './components/themes'
 import Hero from './components/Hero'
 import TopBar from './components/TopBar'
 import MenuIndex from './components/MenuIndex'
@@ -23,30 +22,26 @@ export default function App() {
 
   return (
     <FavoritesProvider>
-      <Intro />
+      <div className="paper" aria-hidden />
       <TopBar onIndex={() => setIndexOpen(true)} />
 
-      <main>
-        <Hero
-          onSurprise={() => setSurpriseOpen(true)}
-          onRecommend={() => setRecommenderOpen(true)}
-        />
+      <main className="relative z-[2]">
+        <Hero onRecommend={() => setRecommenderOpen(true)} />
         <SmartBanner />
 
-        {/* la carta como recorrido: un capítulo por categoría */}
+        {/* la carta: un capítulo por categoría */}
         {CATEGORIES.map((category) => {
-          const theme = THEMES[category.theme]
+          const accent = ACCENTS[category.theme]
           return (
             <section
               key={category.id}
               id={category.id}
-              className={`relative scroll-mt-4 ${theme.light ? '' : 'film-grain'}`}
-              style={{ background: theme.bg }}
+              className="mx-auto max-w-xl scroll-mt-14 px-6"
               aria-label={category.name}
             >
-              <ChapterIntro category={category} theme={theme} />
+              <ChapterIntro category={category} accent={accent} />
               {productsByCategory(category.id).map((product) => (
-                <ProductCard key={product.id} product={product} theme={theme} />
+                <ProductCard key={product.id} product={product} accent={accent} />
               ))}
             </section>
           )
@@ -55,12 +50,12 @@ export default function App() {
         <HistoryTimeline />
 
         {/* cierre, como la carta física */}
-        <footer className="border-t border-gold/15 bg-ink px-6 pb-32 pt-14 text-center">
+        <footer className="border-t border-ink/10 px-6 pb-32 pt-14 text-center">
           <p className="font-serif text-3xl font-semibold italic text-gold">¡Gracias por venir!</p>
-          <p className="mt-4 text-[11px] uppercase tracking-[0.3em] text-cream-dim">
+          <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-ink/45">
             Todos los panes son artesanales · Hecho al momento
           </p>
-          <p className="mt-6 font-serif text-xs text-cream/40">
+          <p className="mt-5 text-[10px] uppercase tracking-[0.24em] text-ink/30">
             Taberna Zaharra · Desde 2002
           </p>
         </footer>

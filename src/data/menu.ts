@@ -2,15 +2,7 @@
  * La carta de Taberna Zaharra, transcrita de la carta física (2026).
  * Cada producto lleva su capa de storytelling: protagonista, maridaje,
  * medidores visuales y las pistas que usa el recomendador.
- *
- * `image` apunta a /img/products/<id>.png — foto real del plato RECORTADA
- * (fondo transparente, ~1200px). Cuando exista el archivo en
- * public/img/products/, sustituye automáticamente a la escena ilustrada y
- * el plato flota sobre el resplandor cálido de la tarjeta.
  */
-
-/** Ruta de la foto recortada del producto, respetando la base del despliegue (p. ej. GitHub Pages). */
-const img = (id: string) => `${import.meta.env.BASE_URL}img/products/${id}.png`
 
 export type CategoryId =
   | 'compartir'
@@ -19,20 +11,6 @@ export type CategoryId =
   | 'bocatas'
   | 'batidos'
   | 'malteadas'
-
-export type SceneId =
-  | 'burger-casa'
-  | 'burger-pollo'
-  | 'burger-sepia'
-  | 'nachos'
-  | 'patatas'
-  | 'nuggets'
-  | 'bocata'
-  | 'shake-mango'
-  | 'shake-fresa'
-  | 'malteada-vainilla'
-  | 'malteada-fresa'
-  | 'malteada-chocolate'
 
 export interface Meter {
   label: string
@@ -51,8 +29,6 @@ export interface Product {
   pairing?: string
   badges: string[]
   meters: Meter[]
-  scene: SceneId
-  image: string
   /** pistas para el recomendador */
   hearty: boolean // ¿quita mucha hambre?
   meat: boolean
@@ -141,8 +117,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Picante', value: 3 },
       { label: 'De compartir', value: 5 },
     ],
-    scene: 'nachos',
-    image: img('nachos-cargados'),
     hearty: true,
     meat: false,
     share: true,
@@ -168,8 +142,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Picante (bravas)', value: 3 },
       { label: 'De compartir', value: 4 },
     ],
-    scene: 'patatas',
-    image: img('patatas'),
     hearty: false,
     meat: false,
     kids: true,
@@ -194,8 +166,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Contundencia', value: 3 },
       { label: 'De compartir', value: 4 },
     ],
-    scene: 'nuggets',
-    image: img('nuggets'),
     hearty: false,
     meat: true,
     kids: true,
@@ -223,8 +193,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Queso', value: 4 },
       { label: 'Picante', value: 1 },
     ],
-    scene: 'burger-pollo',
-    image: img('burger-pollo'),
     hearty: true,
     meat: true,
     kids: true,
@@ -257,8 +225,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Queso', value: 3 },
       { label: 'Picante', value: 1 },
     ],
-    scene: 'burger-casa',
-    image: img('burger-casa'),
     hearty: true,
     meat: true,
   },
@@ -282,8 +248,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Queso', value: 3 },
       { label: 'Picante', value: 2 },
     ],
-    scene: 'burger-sepia',
-    image: img('burger-sepia'),
     hearty: true,
     meat: false,
   },
@@ -308,8 +272,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Contundencia', value: 3 },
       { label: 'Queso', value: 4 },
     ],
-    scene: 'bocata',
-    image: img('bocata-pollo'),
     hearty: true,
     meat: true,
     kids: true,
@@ -333,8 +295,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Contundencia', value: 4 },
       { label: 'Queso', value: 4 },
     ],
-    scene: 'bocata',
-    image: img('bocata-lomo'),
     hearty: true,
     meat: true,
   },
@@ -357,8 +317,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Contundencia', value: 5 },
       { label: 'Queso', value: 1 },
     ],
-    scene: 'bocata',
-    image: img('bocata-ternera'),
     hearty: true,
     meat: true,
   },
@@ -383,8 +341,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Fruta', value: 5 },
       { label: 'Cremosidad', value: 3 },
     ],
-    scene: 'shake-mango',
-    image: img('batido-mango'),
     hearty: false,
     meat: false,
     kids: true,
@@ -408,8 +364,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Fruta', value: 5 },
       { label: 'Cremosidad', value: 3 },
     ],
-    scene: 'shake-fresa',
-    image: img('batido-fresa'),
     hearty: false,
     meat: false,
     kids: true,
@@ -435,8 +389,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Dulzura', value: 4 },
       { label: 'Frescura', value: 4 },
     ],
-    scene: 'malteada-vainilla',
-    image: img('malteada-vainilla'),
     hearty: false,
     meat: false,
     kids: true,
@@ -460,8 +412,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Dulzura', value: 4 },
       { label: 'Fruta', value: 4 },
     ],
-    scene: 'malteada-fresa',
-    image: img('malteada-fresa'),
     hearty: false,
     meat: false,
     kids: true,
@@ -485,8 +435,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Dulzura', value: 5 },
       { label: 'Intensidad', value: 5 },
     ],
-    scene: 'malteada-chocolate',
-    image: img('malteada-chocolate'),
     hearty: false,
     meat: false,
     kids: true,

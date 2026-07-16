@@ -93,12 +93,12 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
     <button
       type="button"
       onClick={onPick}
-      className="brass-frame group flex w-full items-baseline gap-4 rounded-2xl bg-ink-3/80 px-5 py-4 text-left transition-transform hover:scale-[1.02] active:scale-95"
+      className="group flex w-full items-baseline gap-4 rounded-2xl bg-white/50 px-5 py-4 text-left ring-1 ring-ink/10 transition-all hover:ring-gold/60 active:scale-[0.98]"
     >
-      <span className="font-display text-xs font-semibold text-gold/60 transition-colors group-hover:text-gold">
+      <span className="font-display text-xs font-semibold text-gold/70 transition-colors group-hover:text-gold">
         {String(index).padStart(2, '0')}
       </span>
-      <span className="font-serif text-xl text-cream">{label}</span>
+      <span className="font-display text-2xl font-medium text-ink">{label}</span>
     </button>
   )
 
@@ -109,20 +109,20 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="wood fixed inset-0 z-[70] overflow-y-auto"
+          className="fixed inset-0 z-[70] overflow-y-auto bg-paper"
           role="dialog"
           aria-modal="true"
           aria-label="¿Qué pido?"
         >
           <div className="mx-auto flex min-h-full w-full max-w-md flex-col justify-center px-6 py-16">
-            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.4em] text-cream-dim">
+            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.4em] text-ink/45">
               {result ? 'La casa recomienda' : `Pregunta ${step + 1} — 3`}
             </p>
 
             <AnimatePresence mode="wait">
               {!result && step === 0 && (
                 <motion.div key="q1" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                  <h3 className="text-center font-display text-4xl font-medium text-ink">
                     ¿Cómo vienes hoy?
                   </h3>
                   <div className="mt-7 space-y-3">
@@ -143,7 +143,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
 
               {!result && step === 1 && (
                 <motion.div key="q2" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                  <h3 className="text-center font-display text-4xl font-medium text-ink">
                     ¿Tienes mucha hambre?
                   </h3>
                   <div className="mt-7 space-y-3">
@@ -155,7 +155,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
 
               {!result && step === 2 && (
                 <motion.div key="q3" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="mt-6">
-                  <h3 className="text-center font-display text-4xl font-semibold text-cream">
+                  <h3 className="text-center font-display text-4xl font-medium text-ink">
                     ¿Te apetece carne?
                   </h3>
                   <div className="mt-7 space-y-3">
@@ -173,30 +173,30 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
                   transition={{ type: 'spring', stiffness: 170, damping: 16 }}
                   className="mt-6 text-center"
                 >
-                  <h3 className="font-display text-5xl font-semibold leading-tight text-gold">
+                  <h3 className="font-display text-5xl font-medium leading-tight text-ink">
                     {result.main.name}
                   </h3>
-                  <p className="mt-2 font-display text-2xl font-semibold text-ember">{result.main.price}</p>
+                  <p className="mt-2 font-display text-3xl font-semibold text-gold">{result.main.price}</p>
                   {result.side && (
-                    <p className="mt-3 font-serif text-lg italic text-cream/85">
+                    <p className="mt-3 font-serif text-xl italic text-ink/75">
                       + {result.side.name} · {result.side.price}
                     </p>
                   )}
-                  <p className="mx-auto mt-5 max-w-xs font-serif text-lg italic text-cream-dim">
+                  <p className="mx-auto mt-5 max-w-xs font-serif text-xl italic text-ink/60">
                     {result.phrase}
                   </p>
                   <div className="mt-8 flex flex-col items-center gap-3">
                     <a
                       href={`#${result.main.id}`}
                       onClick={close}
-                      className="rounded-full bg-gold px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink"
+                      className="rounded-full bg-ink px-8 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-paper"
                     >
                       Verlo en la carta
                     </a>
                     <button
                       type="button"
                       onClick={reset}
-                      className="rounded-full border border-white/15 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold hover:border-gold/40"
+                      className="rounded-full border border-ink/15 px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-ink/70 hover:border-gold hover:text-gold"
                     >
                       Volver a empezar
                     </button>
@@ -210,7 +210,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
             type="button"
             onClick={close}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/15 text-cream-dim hover:text-cream"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/50 hover:text-ink"
           >
             <IconClose size={16} />
           </button>
