@@ -36,13 +36,13 @@ export default function FavoritesDrawer({ open, onClose }: { open: boolean; onCl
             </h3>
 
             {items.length === 0 ? (
-              <p className="mt-3 pb-4 font-serif text-xl italic text-ink/60">
+              <p className="mt-3 pb-4 font-serif text-xl italic text-ink/70">
                 Aún no has guardado nada. Toca el corazón de un plato y te esperará aquí para
                 cuando llegue el camarero.
               </p>
             ) : (
               <>
-                <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/45">
+                <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/70">
                   Tu comanda, lista para cantar
                 </p>
                 <ul className="mt-5 space-y-3">
@@ -53,7 +53,7 @@ export default function FavoritesDrawer({ open, onClose }: { open: boolean; onCl
                     >
                       <a href={`#${p.id}`} onClick={onClose} className="min-w-0">
                         <p className="truncate font-display text-xl font-semibold text-ink">{p.name}</p>
-                        <p className="text-[9.5px] font-semibold uppercase tracking-wider text-ink/45">
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-ink/70">
                           {p.priceNote}
                         </p>
                       </a>

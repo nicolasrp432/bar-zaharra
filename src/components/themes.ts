@@ -8,6 +8,6 @@ export const ACCENTS: Record<Category['theme'], string> = {
   ember: '#a63d1e', // brasa
   brass: '#8a6a2f', // latón
   rustic: '#8a5424', // pan
-  fresh: '#b06010', // mango
+  fresh: '#9a520a', // mango
   cream: '#9c4f63', // fresa
 }

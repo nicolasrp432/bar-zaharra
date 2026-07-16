@@ -115,7 +115,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
           aria-label="¿Qué pido?"
         >
           <div className="mx-auto flex min-h-full w-full max-w-md flex-col justify-center px-6 py-16">
-            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.4em] text-ink/45">
+            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.4em] text-ink/70">
               {result ? 'La casa recomienda' : `Pregunta ${step + 1} — 3`}
             </p>
 
@@ -182,7 +182,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
                       + {result.side.name} · {result.side.price}
                     </p>
                   )}
-                  <p className="mx-auto mt-5 max-w-xs font-serif text-xl italic text-ink/60">
+                  <p className="mx-auto mt-5 max-w-xs font-serif text-xl italic text-ink/70">
                     {result.phrase}
                   </p>
                   <div className="mt-8 flex flex-col items-center gap-3">
@@ -210,7 +210,7 @@ export default function Recommender({ open, onClose }: { open: boolean; onClose:
             type="button"
             onClick={close}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/50 hover:text-ink"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/65 hover:text-ink"
           >
             <IconClose size={16} />
           </button>

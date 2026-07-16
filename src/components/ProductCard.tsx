@@ -36,7 +36,7 @@ export default function ProductCard({ product, accent }: { product: Product; acc
       </div>
 
       {/* ingredientes en una línea */}
-      <p className="mt-2 text-[10.5px] font-medium uppercase tracking-[0.16em] text-ink/55">
+      <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink/70">
         {product.ingredients.join(' · ')}
       </p>
 
@@ -45,8 +45,8 @@ export default function ProductCard({ product, accent }: { product: Product; acc
         {product.badges.map((b) => (
           <span
             key={b}
-            className="inline-flex items-center gap-1.5 text-[9.5px] font-bold uppercase tracking-[0.18em]"
-            style={{ color: /más pedid/i.test(b) ? accent : 'rgb(36 28 18 / 0.45)' }}
+            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: /más pedid/i.test(b) ? accent : 'rgb(36 28 18 / 0.6)' }}
           >
             {/más pedid/i.test(b) && <IconStar size={9} />}
             {b}
@@ -59,7 +59,7 @@ export default function ProductCard({ product, accent }: { product: Product; acc
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={`Detalles de ${product.name}`}
-            className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[9.5px] font-bold uppercase tracking-[0.18em] text-ink/55 transition-colors hover:text-ink"
+            className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70 transition-colors hover:text-ink"
           >
             Detalle
             <IconChevronDown
@@ -74,7 +74,7 @@ export default function ProductCard({ product, accent }: { product: Product; acc
             aria-pressed={fav}
             aria-label={fav ? `Quitar ${product.name} de favoritos` : `Añadir ${product.name} a favoritos`}
             className={`grid h-8 w-8 place-items-center rounded-full transition-colors ${
-              fav ? 'text-rust' : 'text-ink/35 hover:text-rust'
+              fav ? 'text-rust' : 'text-ink/70 hover:text-rust'
             }`}
           >
             <IconHeart size={16} filled={fav} />
@@ -96,14 +96,14 @@ export default function ProductCard({ product, accent }: { product: Product; acc
               <p className="font-serif text-xl italic leading-snug text-ink/80">
                 {product.tagline}
               </p>
-              <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/45">
+              <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/70">
                 {product.priceNote}
               </p>
 
               <div className="mt-5 grid gap-6 sm:grid-cols-2">
                 <Meters meters={product.meters} accent={accent} />
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-ink/45">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-ink/70">
                     El protagonista
                   </p>
                   <p className="mt-1 font-display text-xl font-semibold" style={{ color: accent }}>

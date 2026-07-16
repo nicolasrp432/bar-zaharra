@@ -37,11 +37,11 @@ export default function BottomNav({
           type="button"
           onClick={onFavorites}
           aria-label={`Tus favoritos (${favorites.length})`}
-          className="relative grid h-10 w-11 place-items-center rounded-full text-ink/45 transition-colors hover:text-rust"
+          className="relative grid h-10 w-11 place-items-center rounded-full text-ink/70 transition-colors hover:text-rust"
         >
           <IconHeart size={18} filled={favorites.length > 0} className={favorites.length > 0 ? 'text-rust' : undefined} />
           {favorites.length > 0 && (
-            <span className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full border border-paper bg-rust px-1 text-[9px] font-bold text-white">
+            <span className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full border border-paper bg-rust px-1 text-[10px] font-bold text-white">
               {favorites.length}
             </span>
           )}

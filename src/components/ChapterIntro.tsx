@@ -27,7 +27,7 @@ export default function ChapterIntro({ category, accent }: { category: Category;
           hidden: { opacity: 0, letterSpacing: '0.55em' },
           show: { opacity: 1, letterSpacing: '0.38em', transition: { duration: 0.9, delay: 0.1 } },
         }}
-        className="mt-4 text-[9px] font-bold uppercase text-ink/45"
+        className="mt-4 text-[10px] font-bold uppercase text-ink/70"
       >
         {category.chapter}
       </motion.p>
@@ -47,7 +47,7 @@ export default function ChapterIntro({ category, accent }: { category: Category;
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { duration: 0.7, delay: 0.4 } },
         }}
-        className="mt-2.5 max-w-sm font-serif text-lg italic text-ink/60"
+        className="mt-2.5 max-w-sm font-serif text-lg italic text-ink/70"
       >
         {category.lead}. {category.sub}
       </motion.p>

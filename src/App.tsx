@@ -52,11 +52,8 @@ export default function App() {
         {/* cierre, como la carta física */}
         <footer className="border-t border-ink/10 px-6 pb-32 pt-14 text-center">
           <p className="font-serif text-3xl font-semibold italic text-gold">¡Gracias por venir!</p>
-          <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-ink/45">
+          <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-ink/70">
             Todos los panes son artesanales · Hecho al momento
-          </p>
-          <p className="mt-5 text-[10px] uppercase tracking-[0.24em] text-ink/30">
-            Taberna Zaharra · Desde 2002
           </p>
         </footer>
       </main>

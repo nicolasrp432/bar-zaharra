@@ -47,7 +47,7 @@ export default function TopBar({ onIndex }: { onIndex: () => void }) {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  className="hidden font-serif text-base italic text-ink/55 sm:block"
+                  className="hidden font-serif text-base italic text-ink/70 sm:block"
                 >
                   {category.chapter} · {category.name}
                 </motion.span>

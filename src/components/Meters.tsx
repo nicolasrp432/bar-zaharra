@@ -7,7 +7,7 @@ export default function Meters({ meters, accent }: { meters: Meter[]; accent: st
       {meters.map((m) => (
         <div key={m.label}>
           <div className="flex items-baseline justify-between gap-4">
-            <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/55">
+            <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/70">
               {m.label}
             </dt>
             <dd

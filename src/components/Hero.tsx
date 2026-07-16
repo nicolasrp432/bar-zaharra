@@ -53,13 +53,6 @@ export default function Hero({ onRecommend }: { onRecommend: () => void }) {
           Zaharra
         </motion.h1>
 
-        <motion.p
-          variants={fade}
-          className="mt-3 text-[10px] font-semibold uppercase tracking-[0.42em] text-ink/50"
-        >
-          · Desde 2002 ·
-        </motion.p>
-
         <div className="mt-8">
           <Ornament />
         </div>

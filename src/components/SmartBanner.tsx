@@ -29,7 +29,7 @@ export default function SmartBanner() {
           type="button"
           onClick={() => setDismissed(true)}
           aria-label="Cerrar sugerencia"
-          className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-ink/40 hover:text-ink"
+          className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-ink/70 hover:text-ink"
         >
           <IconClose size={13} />
         </button>

@@ -30,10 +30,7 @@ export default function HistoryTimeline() {
   return (
     <section className="px-6 pb-20 pt-24" aria-label="Nuestra historia">
       <div className="mx-auto max-w-xl">
-        <p className="text-center text-[9px] font-bold uppercase tracking-[0.4em] text-ink/45">
-          Nuestra historia
-        </p>
-        <h2 className="mt-3 text-center font-display text-5xl font-medium text-ink">Desde 2002</h2>
+        <h2 className="text-center font-display text-5xl font-medium text-ink">Nuestra historia</h2>
 
         <div className="relative mt-12">
           <span className="absolute left-[19px] top-1 h-full w-px bg-ink/12" aria-hidden />

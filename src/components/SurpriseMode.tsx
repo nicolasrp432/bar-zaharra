@@ -46,7 +46,7 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
           aria-modal="true"
           aria-label="Sorpréndeme"
         >
-          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.4em] text-ink/45">
+          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.4em] text-ink/70">
             <IconSparkle size={13} className="text-gold" />
             La casa elige
           </p>
@@ -77,7 +77,7 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
                 transition={{ delay: 0.15 }}
               >
                 <p className="mt-3 font-display text-3xl font-semibold text-gold">{pick.price}</p>
-                <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/45">
+                <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/70">
                   {pick.priceNote}
                 </p>
                 <p className="mt-5 font-serif text-2xl italic text-ink/70">
@@ -110,7 +110,7 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/50 hover:text-ink"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/65 hover:text-ink"
           >
             <IconClose size={16} />
           </button>

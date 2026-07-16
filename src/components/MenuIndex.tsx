@@ -56,13 +56,13 @@ export default function MenuIndex({
                 type="button"
                 onClick={onClose}
                 aria-label="Cerrar índice"
-                className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/60 transition-colors hover:text-ink"
+                className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/70 transition-colors hover:text-ink"
               >
                 <IconClose size={16} />
               </button>
             </div>
 
-            <p className="mt-10 text-[9px] font-bold uppercase tracking-[0.4em] text-ink/45">
+            <p className="mt-10 text-[10px] font-bold uppercase tracking-[0.4em] text-ink/70">
               La carta
             </p>
 
@@ -99,7 +99,7 @@ export default function MenuIndex({
                     >
                       {c.name}
                     </span>
-                    <span className="ml-auto shrink-0 text-right text-[9.5px] font-bold uppercase tracking-[0.16em] text-ink/45">
+                    <span className="ml-auto shrink-0 text-right text-[10px] font-bold uppercase tracking-[0.16em] text-ink/70">
                       {count} {count === 1 ? 'plato' : 'platos'}
                       <span className="block text-gold">desde {from}</span>
                     </span>
@@ -145,9 +145,9 @@ export default function MenuIndex({
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 0.6 } }}
-              className="mt-8 text-center text-[9px] font-bold uppercase tracking-[0.3em] text-ink/30"
+              className="mt-8 text-center text-[10px] font-bold uppercase tracking-[0.3em] text-ink/70"
             >
-              Hecho al momento · Desde 2002
+              Hecho al momento
             </motion.p>
           </div>
         </motion.div>
