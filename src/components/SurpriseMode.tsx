@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PRODUCTS, type Product } from '../data/menu'
-import ProductScene from './scenes/ProductScene'
+import { IconClose, IconSparkle } from './Icons'
 
 /**
- * Modo "tengo hambre": una ruleta rápida recorre la carta y la casa elige
- * por ti. "Hoy deberías pedir esto."
+ * Modo "tengo hambre": una ruleta tipográfica recorre la carta y la casa
+ * elige por ti. "Hoy deberías pedir esto."
  */
 export default function SurpriseMode({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [phase, setPhase] = useState<'rolling' | 'done'>('rolling')
@@ -41,68 +41,57 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="wood fixed inset-0 z-[70] flex flex-col items-center justify-center px-6 text-center"
+          className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-paper px-6 text-center"
           role="dialog"
           aria-modal="true"
           aria-label="Sorpréndeme"
         >
-          <div
-            className="absolute inset-0 animate-flicker"
-            style={{
-              background:
-                'radial-gradient(ellipse 65% 50% at 50% 45%, rgb(255 140 66 / 0.14), transparent 72%)',
-            }}
-          />
-
-          <p className="relative text-xs uppercase tracking-[0.4em] text-cream-dim">
+          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.4em] text-ink/70">
+            <IconSparkle size={13} className="text-gold" />
             La casa elige
           </p>
 
-          <div className="relative mt-6 h-56 w-72 sm:h-64 sm:w-80">
-            <motion.div
+          <div className="mt-10 flex min-h-40 w-full max-w-sm flex-col items-center justify-center">
+            <motion.p
               key={pick.id + phase}
-              initial={{ scale: phase === 'done' ? 0.7 : 0.94, opacity: 0.6 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={
+                phase === 'done'
+                  ? { scale: 0.8, opacity: 0 }
+                  : { opacity: 0.3, y: 14, filter: 'blur(2px)' }
+              }
+              animate={{ scale: 1, opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={
                 phase === 'done'
-                  ? { type: 'spring', stiffness: 180, damping: 14 }
-                  : { duration: 0.08 }
+                  ? { type: 'spring', stiffness: 200, damping: 16 }
+                  : { duration: 0.09 }
               }
-              className="h-full w-full"
-            >
-              {/* durante la ruleta basta el emoji; el plato completo, al parar */}
-              {phase === 'rolling' ? (
-                <div className="grid h-full w-full place-items-center text-7xl">
-                  {pick.scene.startsWith('burger') ? '🍔' : pick.scene === 'bocata' ? '🥖' : pick.scene.startsWith('shake') ? '🥤' : pick.scene.startsWith('malteada') ? '🍦' : '🍟'}
-                </div>
-              ) : (
-                <ProductScene product={pick} />
-              )}
-            </motion.div>
-          </div>
-
-          <div className="relative mt-4 min-h-32">
-            <motion.h3
-              key={pick.id}
-              initial={{ opacity: 0.4, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-display text-3xl text-cream"
+              className={`font-display font-medium text-ink ${phase === 'done' ? 'text-6xl' : 'text-4xl italic opacity-70'}`}
             >
               {pick.name}
-            </motion.h3>
+            </motion.p>
+
             {phase === 'done' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-                <p className="mt-1 font-display text-2xl text-ember">{pick.price}</p>
-                <p className="mt-2 font-script text-2xl text-gold">Hoy deberías pedir esto.</p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <p className="mt-3 font-display text-3xl font-semibold text-gold">{pick.price}</p>
+                <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/70">
+                  {pick.priceNote}
+                </p>
+                <p className="mt-5 font-serif text-2xl italic text-ink/70">
+                  Hoy deberías pedir esto.
+                </p>
               </motion.div>
             )}
           </div>
 
-          <div className="relative mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
               href={`#${pick.id}`}
               onClick={onClose}
-              className={`rounded-full bg-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition-opacity ${
+              className={`rounded-full bg-ink px-8 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-paper transition-opacity ${
                 phase === 'done' ? 'opacity-100' : 'pointer-events-none opacity-30'
               }`}
             >
@@ -111,9 +100,9 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             <button
               type="button"
               onClick={roll}
-              className="rounded-full border border-gold/40 px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold"
+              className="rounded-full border border-ink/15 px-7 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/70 hover:border-gold hover:text-gold"
             >
-              🎲 Otra vez
+              Otra vez
             </button>
           </div>
 
@@ -121,9 +110,9 @@ export default function SurpriseMode({ open, onClose }: { open: boolean; onClose
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-cream/20 text-cream-dim hover:text-cream"
+            className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink/65 hover:text-ink"
           >
-            ✕
+            <IconClose size={16} />
           </button>
         </motion.div>
       )}

@@ -1,5 +1,0 @@
-Deja aquí las fotos reales:
-- hero.jpg (portada)
-- products/<id>.jpg, p. ej. burger-casa.jpg, batido-mango.jpg
-Los nombres válidos son los `id` de src/data/menu.ts.
-Mientras un archivo no exista, la web muestra la escena ilustrada.

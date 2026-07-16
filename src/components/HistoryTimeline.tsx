@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { IconStar } from './Icons'
 
 /** Hitos editables de la historia del local. */
 const MILESTONES = [
@@ -27,15 +28,12 @@ const MILESTONES = [
 /** La historia del local, de 2002 a hoy, como un pequeño recorrido vertical. */
 export default function HistoryTimeline() {
   return (
-    <section className="wood relative px-6 py-24" aria-label="Nuestra historia">
+    <section className="px-6 pb-20 pt-24" aria-label="Nuestra historia">
       <div className="mx-auto max-w-xl">
-        <p className="text-center text-[11px] uppercase tracking-[0.4em] text-cream-dim">
-          Nuestra historia
-        </p>
-        <h2 className="mt-3 text-center font-display text-4xl text-gold">Desde 2002</h2>
+        <h2 className="text-center font-display text-5xl font-medium text-ink">Nuestra historia</h2>
 
         <div className="relative mt-12">
-          <span className="absolute left-[19px] top-1 h-full w-px bg-gold/25" aria-hidden />
+          <span className="absolute left-[19px] top-1 h-full w-px bg-ink/12" aria-hidden />
           <ol className="space-y-10">
             {MILESTONES.map((m) => (
               <motion.li
@@ -48,15 +46,15 @@ export default function HistoryTimeline() {
               >
                 <span
                   aria-hidden
-                  className="brass-frame z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink-2 text-xs font-bold text-gold"
+                  className="z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full bg-paper text-[11px] font-bold text-gold ring-1 ring-ink/15"
                 >
-                  {m.year === 'Hoy' ? '★' : m.year.slice(2)}
+                  {m.year === 'Hoy' ? <IconStar size={13} /> : m.year.slice(2)}
                 </span>
                 <div>
-                  <p className="font-display text-xl text-cream">
-                    {m.year} · <span className="text-gold">{m.title}</span>
+                  <p className="font-display text-2xl font-medium text-ink">
+                    {m.year} · <span className="italic text-gold">{m.title}</span>
                   </p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-cream/70">{m.text}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink/65">{m.text}</p>
                 </div>
               </motion.li>
             ))}
