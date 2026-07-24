@@ -133,13 +133,51 @@ export const IconMenu = (p: P) => (
   </svg>
 )
 
+/** Ensaladas: hoja */
+export const IconSalad = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M12 20c0-6 4-11 9-12-1 6-4 11-9 12Z" />
+    <path d="M12 20C7 19 4 14 3 8c5 1 8 5 9 11" />
+    <path d="M12 20v-8" />
+  </svg>
+)
+
+/** Entrantes: plato con tenedor y cuchillo */
+export const IconStarter = (p: P) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="8.5" />
+    <circle cx="12" cy="12" r="4" />
+  </svg>
+)
+
+/** Carnes: chuletón con hueso */
+export const IconMeat = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M15 9a5.5 5.5 0 1 0-5.4 5.5c.8 0 1.2.5 1.4 1.2l.5 1.8a2 2 0 1 0 2.6-2.6l-1.8-.5c-.7-.2-1.2-.6-1.2-1.4A5.5 5.5 0 0 0 15 9Z" />
+    <circle cx="11" cy="9" r="2" />
+  </svg>
+)
+
+/** Postres: porción de tarta */
+export const IconDessert = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M4 16.5 13 6l6 5.5-6 7.5-9-2.5Z" />
+    <path d="M4 16.5 13 14l6-2.5" />
+    <circle cx="12.5" cy="8.5" r="1" />
+  </svg>
+)
+
 const CATEGORY_ICONS: Record<CategoryId, (p: P) => ReactElement> = {
+  ensaladas: IconSalad,
+  entrantes: IconStarter,
   compartir: IconShare,
   raciones: IconFries,
+  carnes: IconMeat,
   hamburguesas: IconBurger,
   bocatas: IconBaguette,
   batidos: IconShake,
   malteadas: IconSundae,
+  postres: IconDessert,
 }
 
 export function CategoryIcon({ id, ...p }: P & { id: CategoryId }) {

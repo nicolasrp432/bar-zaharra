@@ -1,6 +1,6 @@
-# Taberna Zaharra · Carta digital
+# Bar Zaharra · Carta digital
 
-Carta digital para **Taberna Zaharra** (desde 2002), pensada para el QR de la mesa: un menú
+Carta digital para **Bar Zaharra**, pensada para el QR de la mesa: un menú
 claro y elegante que da la información al momento y ayuda a elegir sin fricción.
 
 **🌐 En producción: https://nicolasrp432.github.io/bar-zaharra/** — cada push a `main`
@@ -12,7 +12,7 @@ redespliega automáticamente (workflow `.github/workflows/deploy.yml`, publica e
 Carta clara y premium, tipo *fine dining*: papel crema, tipografía Cormorant Garamond y solo
 iconos de línea como detalle gráfico. Sin imágenes: la información manda.
 
-- **Portada**: el logotipo tipográfico de la casa — TABERNA · Zaharra · Desde 2002 — con
+- **Portada**: el logotipo tipográfico de la casa — BAR · Zaharra — con
   entrada suave, el lema *"Hecho al momento. Como debe ser."* y dos acciones: Ver la carta
   y Ayúdame a elegir.
 - **La carta como menú legible**: entradas clásicas con línea de puntos entre plato y precio,
