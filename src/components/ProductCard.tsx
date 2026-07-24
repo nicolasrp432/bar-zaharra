@@ -8,12 +8,15 @@ import { IconChevronDown, IconHeart, IconStar } from './Icons'
 /**
  * Entrada de carta clásica y legible: nombre, línea de puntos y precio.
  * El detalle (historia, medidores, maridaje) vive en un desplegable
- * discreto para quien quiera saber más.
+ * discreto y solo aparece en los platos que lo tienen.
  */
 export default function ProductCard({ product, accent }: { product: Product; accent: string }) {
   const { isFavorite, toggle } = useFavorites()
   const [open, setOpen] = useState(false)
   const fav = isFavorite(product.id)
+
+  const hasDetail =
+    !!product.tagline || !!product.protagonist || !!product.pairing || !!product.meters?.length
 
   return (
     <motion.article
@@ -35,13 +38,20 @@ export default function ProductCard({ product, accent }: { product: Product; acc
         </p>
       </div>
 
-      {/* ingredientes en una línea */}
-      <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink/70">
-        {product.ingredients.join(' · ')}
-      </p>
+      {/* ingredientes en una línea (si los hay) */}
+      {product.ingredients.length > 0 && (
+        <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink/70">
+          {product.ingredients.join(' · ')}
+        </p>
+      )}
 
       {/* nota + badges + acciones */}
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {product.priceNote && (
+          <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">
+            {product.priceNote}
+          </span>
+        )}
         {product.badges.map((b) => (
           <span
             key={b}
@@ -54,19 +64,21 @@ export default function ProductCard({ product, accent }: { product: Product; acc
         ))}
 
         <span className="ml-auto flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-label={`Detalles de ${product.name}`}
-            className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70 transition-colors hover:text-ink"
-          >
-            Detalle
-            <IconChevronDown
-              size={12}
-              className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-            />
-          </button>
+          {hasDetail && (
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-label={`Detalles de ${product.name}`}
+              className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70 transition-colors hover:text-ink"
+            >
+              Detalle
+              <IconChevronDown
+                size={12}
+                className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+              />
+            </button>
+          )}
           <motion.button
             type="button"
             onClick={() => toggle(product.id)}
@@ -84,7 +96,7 @@ export default function ProductCard({ product, accent }: { product: Product; acc
 
       {/* detalle desplegable */}
       <AnimatePresence initial={false}>
-        {open && (
+        {open && hasDetail && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -93,27 +105,30 @@ export default function ProductCard({ product, accent }: { product: Product; acc
             className="overflow-hidden"
           >
             <div className="mt-5 rounded-xl bg-white/45 p-5 ring-1 ring-ink/8">
-              <p className="font-serif text-xl italic leading-snug text-ink/80">
-                {product.tagline}
-              </p>
-              <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/70">
-                {product.priceNote}
-              </p>
+              {product.tagline && (
+                <p className="font-serif text-xl italic leading-snug text-ink/80">
+                  {product.tagline}
+                </p>
+              )}
 
-              <div className="mt-5 grid gap-6 sm:grid-cols-2">
-                <Meters meters={product.meters} accent={accent} />
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-ink/70">
-                    El protagonista
-                  </p>
-                  <p className="mt-1 font-display text-xl font-semibold" style={{ color: accent }}>
-                    {product.protagonist.name}
-                  </p>
-                  <p className="mt-1 text-[13px] leading-relaxed text-ink/70">
-                    {product.protagonist.text}
-                  </p>
+              {(product.meters?.length || product.protagonist) && (
+                <div className="mt-5 grid gap-6 sm:grid-cols-2">
+                  {product.meters?.length ? <Meters meters={product.meters} accent={accent} /> : <div />}
+                  {product.protagonist && (
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-ink/70">
+                        El protagonista
+                      </p>
+                      <p className="mt-1 font-display text-xl font-semibold" style={{ color: accent }}>
+                        {product.protagonist.name}
+                      </p>
+                      <p className="mt-1 text-[13px] leading-relaxed text-ink/70">
+                        {product.protagonist.text}
+                      </p>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
 
               {product.pairing && (
                 <p

@@ -43,7 +43,7 @@ export default function Hero({ onRecommend }: { onRecommend: () => void }) {
           }}
           className="mt-8 text-[11px] font-semibold uppercase text-gold"
         >
-          Taberna
+          Bar
         </motion.p>
 
         <motion.h1

@@ -6,7 +6,7 @@ const MILESTONES = [
   {
     year: '2002',
     title: 'Se encienden las luces',
-    text: 'Abre Taberna Zaharra: una barra de madera, pocas mesas y una idea fija — todo hecho al momento.',
+    text: 'Abre Bar Zaharra: una barra de madera, pocas mesas y una idea fija — todo hecho al momento.',
   },
   {
     year: '2010',

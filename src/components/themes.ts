@@ -10,4 +10,5 @@ export const ACCENTS: Record<Category['theme'], string> = {
   rustic: '#8a5424', // pan
   fresh: '#9a520a', // mango
   cream: '#9c4f63', // fresa
+  garden: '#3f6b2e', // verde ensalada
 }

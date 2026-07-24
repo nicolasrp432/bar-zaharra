@@ -1,16 +1,24 @@
 /**
- * La carta de Taberna Zaharra, transcrita de la carta física (2026).
- * Cada producto lleva su capa de storytelling: protagonista, maridaje,
- * medidores visuales y las pistas que usa el recomendador.
+ * La carta de Bar Zaharra, transcrita de la carta física real.
+ * Los platos de la casa (burgers, nachos, bocatas, batidos, malteadas)
+ * llevan su capa de storytelling opcional: tagline, protagonista, medidores
+ * y maridaje. El resto se muestra como entrada de carta: nombre, ingredientes
+ * y precio.
  */
 
 export type CategoryId =
+  | 'ensaladas'
+  | 'entrantes'
   | 'compartir'
   | 'raciones'
+  | 'carnes'
   | 'hamburguesas'
   | 'bocatas'
   | 'batidos'
   | 'malteadas'
+  | 'postres'
+
+export type Theme = 'ember' | 'brass' | 'rustic' | 'fresh' | 'cream' | 'garden'
 
 export interface Meter {
   label: string
@@ -23,12 +31,13 @@ export interface Product {
   name: string
   price: string
   priceNote: string
-  tagline: string
   ingredients: string[]
-  protagonist: { name: string; text: string }
-  pairing?: string
   badges: string[]
-  meters: Meter[]
+  /** storytelling opcional (solo en los platos de la casa) */
+  tagline?: string
+  protagonist?: { name: string; text: string }
+  pairing?: string
+  meters?: Meter[]
   /** pistas para el recomendador */
   hearty: boolean // ¿quita mucha hambre?
   meat: boolean
@@ -42,38 +51,62 @@ export interface Category {
   chapter: string // numeración de capítulo
   lead: string // frase de portada
   sub: string
-  theme: 'ember' | 'brass' | 'rustic' | 'fresh' | 'cream'
+  theme: Theme
 }
 
 export const CATEGORIES: Category[] = [
   {
+    id: 'ensaladas',
+    name: 'Ensaladas',
+    chapter: 'Capítulo I',
+    lead: 'Para empezar en verde',
+    sub: 'Frescas, de cuchillo y tenedor.',
+    theme: 'garden',
+  },
+  {
+    id: 'entrantes',
+    name: 'Entrantes',
+    chapter: 'Capítulo II',
+    lead: 'Lo primero que llega a la mesa',
+    sub: 'A la plancha, para abrir boca.',
+    theme: 'brass',
+  },
+  {
     id: 'compartir',
     name: 'Para compartir',
-    chapter: 'Capítulo I',
-    lead: 'Lo que llega al centro de la mesa',
-    sub: 'Y desaparece antes de que llegue lo demás.',
-    theme: 'brass',
+    chapter: 'Capítulo III',
+    lead: 'Al centro de la mesa',
+    sub: 'Y que se lo pelee la cuadrilla.',
+    theme: 'rustic',
   },
   {
     id: 'raciones',
     name: 'Raciones',
-    chapter: 'Capítulo II',
+    chapter: 'Capítulo IV',
     lead: 'De picar. O de no soltar.',
-    sub: 'Cercanas, calientes, de las de mojar pan.',
-    theme: 'brass',
+    sub: 'Cercanas, calientes, de mojar.',
+    theme: 'fresh',
+  },
+  {
+    id: 'carnes',
+    name: 'Carnes',
+    chapter: 'Capítulo V',
+    lead: 'A la plancha, al punto',
+    sub: 'Para cuando el hambre es en serio.',
+    theme: 'ember',
   },
   {
     id: 'hamburguesas',
     name: 'Hamburguesas',
-    chapter: 'Capítulo III',
-    lead: 'Fuego, humo y pan artesanal',
+    chapter: 'Capítulo VI',
+    lead: 'Fuego, plancha y pan',
     sub: 'Hechas al momento. Como debe ser.',
     theme: 'ember',
   },
   {
     id: 'bocatas',
     name: 'Bocatas',
-    chapter: 'Capítulo IV',
+    chapter: 'Capítulo VII',
     lead: 'Pan crujiente, manos llenas',
     sub: 'Todos los panes son artesanales.',
     theme: 'rustic',
@@ -81,42 +114,148 @@ export const CATEGORIES: Category[] = [
   {
     id: 'batidos',
     name: 'Batidos',
-    chapter: 'Capítulo V',
+    chapter: 'Capítulo VIII',
     lead: 'De la fruta a tu vaso',
-    sub: 'Fríos, frescos, sin azúcares añadidos.',
+    sub: 'Fríos, frescos, naturales.',
     theme: 'fresh',
   },
   {
     id: 'malteadas',
     name: 'Malteadas',
-    chapter: 'Capítulo VI',
+    chapter: 'Capítulo IX',
     lead: 'Con bola de helado',
     sub: 'Lentas, densas, cremosas. Sin prisa.',
     theme: 'cream',
-  }]
+  },
+  {
+    id: 'postres',
+    name: 'Postres',
+    chapter: 'Capítulo X',
+    lead: 'El final feliz',
+    sub: 'Siempre queda un hueco para esto.',
+    theme: 'cream',
+  },
+]
 
 export const PRODUCTS: Product[] = [
+  // ——— ENSALADAS ———
+  {
+    id: 'ensalada-mixta',
+    category: 'ensaladas',
+    name: 'Ensalada Mixta',
+    price: '8,50€',
+    priceNote: '',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+  {
+    id: 'ensalada-tomate',
+    category: 'ensaladas',
+    name: 'Ensalada de Tomate con Bonito',
+    price: '11€',
+    priceNote: 'con cebolleta',
+    ingredients: ['Tomate', 'Bonito', 'Cebolleta'],
+    badges: [],
+    hearty: false,
+    meat: false,
+  },
+
+  // ——— ENTRANTES ———
+  {
+    id: 'alcachofa-jamon',
+    category: 'entrantes',
+    name: 'Alcachofa a la Plancha con Jamón',
+    price: '13€',
+    priceNote: 'crema de boletus',
+    ingredients: ['Alcachofa a la plancha', 'Crema de boletus', 'Jamón'],
+    badges: [],
+    hearty: false,
+    meat: true,
+    share: true,
+  },
+  {
+    id: 'alcachofa',
+    category: 'entrantes',
+    name: 'Alcachofa a la Plancha',
+    price: '12€',
+    priceNote: 'crema de boletus · sin jamón',
+    ingredients: ['Alcachofa a la plancha', 'Crema de boletus'],
+    badges: [],
+    hearty: false,
+    meat: false,
+    share: true,
+  },
+  {
+    id: 'croquetas-iberico',
+    category: 'entrantes',
+    name: 'Croquetas de Jamón Ibérico',
+    price: '7€',
+    priceNote: '8 uds.',
+    ingredients: ['Jamón ibérico', 'Bechamel', 'Rebozado crujiente'],
+    badges: [],
+    hearty: false,
+    meat: true,
+    kids: true,
+    share: true,
+  },
+  {
+    id: 'txipirones',
+    category: 'entrantes',
+    name: 'Txipirones a la Plancha',
+    price: '16,50€',
+    priceNote: 'cebolla caramelizada · salsa especial',
+    ingredients: ['Txipirones a la plancha', 'Cebolla caramelizada', 'Salsa especial'],
+    badges: [],
+    hearty: true,
+    meat: false,
+    share: true,
+  },
+  {
+    id: 'pulpo',
+    category: 'entrantes',
+    name: 'Pulpo a la Plancha',
+    price: '22€',
+    priceNote: 'con parmentier',
+    ingredients: ['Pulpo a la plancha', 'Parmentier'],
+    badges: [],
+    hearty: true,
+    meat: false,
+    share: true,
+  },
+
   // ——— PARA COMPARTIR ———
   {
     id: 'nachos-cargados',
     category: 'compartir',
-    name: 'Nachos Cargados',
-    price: '12€',
-    priceNote: 'para 2 · o para uno, no juzgamos',
+    name: 'Nachos Cargados con Pollo',
+    price: '13€',
+    priceNote: 'para 2 personas',
+    ingredients: [
+      'Pollo a la plancha',
+      'Chips',
+      'Salsa de queso',
+      'Jalapeños',
+      'Guacamole',
+      'Crema agria',
+      'Pico de gallo',
+    ],
     tagline: 'La montaña que se pide para compartir y se defiende con el tenedor.',
-    ingredients: ['Chips', 'Queso fundido', 'Jalapeños', 'Guac', 'Sour cream', 'Pico'],
     protagonist: {
-      name: 'El queso fundido',
-      text: 'Fundido en el momento, cae caliente sobre los chips y llega a la mesa todavía en movimiento.',
+      name: 'El pollo a la plancha',
+      text: 'Marcado en la plancha y repartido por toda la montaña, para que ningún chip se quede solo.',
     },
     pairing: 'Combinan perfecto con un batido de mango bien frío.',
     badges: ['Para compartir'],
     meters: [
       { label: 'Queso', value: 5 },
       { label: 'Picante', value: 3 },
-      { label: 'De compartir', value: 5 }],
+      { label: 'De compartir', value: 5 },
+    ],
     hearty: true,
-    meat: false,
+    meat: true,
     share: true,
   },
 
@@ -124,21 +263,21 @@ export const PRODUCTS: Product[] = [
   {
     id: 'patatas',
     category: 'raciones',
-    name: 'Patatas',
+    name: 'Patatas Fritas',
     price: '5€',
-    priceNote: 'fritas · o bravas',
-    tagline: 'Doradas por fuera, tiernas por dentro. Con bravas, la cosa se pone seria.',
-    ingredients: ['Patata en gajos', 'Fritas o bravas', 'Salsa brava de la casa'],
+    priceNote: 'con salsa brava o alioli',
+    ingredients: ['Patatas fritas', 'Salsa brava', 'Alioli'],
+    tagline: 'Doradas por fuera, tiernas por dentro. Con brava, la cosa se pone seria.',
     protagonist: {
       name: 'La patata',
-      text: 'Cortada aquí y frita dos veces: la primera para el corazón tierno, la segunda para el crujido.',
+      text: 'Frita dos veces: la primera para el corazón tierno, la segunda para el crujido.',
     },
     pairing: 'El escudero oficial de cualquier hamburguesa de la casa.',
     badges: [],
     meters: [
       { label: 'Crujiente', value: 4 },
-      { label: 'Picante (bravas)', value: 3 },
-      { label: 'De compartir', value: 4 }],
+      { label: 'De compartir', value: 4 },
+    ],
     hearty: false,
     meat: false,
     kids: true,
@@ -149,9 +288,9 @@ export const PRODUCTS: Product[] = [
     category: 'raciones',
     name: 'Nuggets de Pollo',
     price: '6 uds 5€ · 12 uds 10€',
-    priceNote: 'salsa a elegir: ketchup · alioli · búffalo',
-    tagline: 'Rebozado crujiente y tres salsas donde mojar. Elegir solo una es el reto.',
+    priceNote: 'salsa a elegir',
     ingredients: ['Pollo jugoso', 'Rebozado crujiente', 'Ketchup', 'Alioli', 'Búffalo'],
+    tagline: 'Rebozado crujiente y tres salsas donde mojar. Elegir solo una es el reto.',
     protagonist: {
       name: 'El rebozado',
       text: 'Crujiente de verdad: se oye desde la otra punta de la barra.',
@@ -160,11 +299,73 @@ export const PRODUCTS: Product[] = [
     badges: ['Favorito de los peques'],
     meters: [
       { label: 'Crujiente', value: 5 },
-      { label: 'Contundencia', value: 3 },
-      { label: 'De compartir', value: 4 }],
+      { label: 'De compartir', value: 4 },
+    ],
     hearty: false,
     meat: true,
     kids: true,
+    share: true,
+  },
+  {
+    id: 'alitas-pollo',
+    category: 'raciones',
+    name: 'Alitas de Pollo',
+    price: '7€',
+    priceNote: '',
+    ingredients: ['Alitas de pollo', 'Salsa de la casa'],
+    badges: [],
+    hearty: false,
+    meat: true,
+    kids: true,
+    share: true,
+  },
+  {
+    id: 'croquetas',
+    category: 'raciones',
+    name: 'Croquetas',
+    price: '7€',
+    priceNote: 'caseras',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: true,
+    kids: true,
+    share: true,
+  },
+
+  // ——— CARNES ———
+  {
+    id: 'entrecot',
+    category: 'carnes',
+    name: 'Entrecot',
+    price: '19,50€',
+    priceNote: '',
+    ingredients: ['Entrecot', 'Patatas fritas', 'Pimiento asado'],
+    badges: [],
+    hearty: true,
+    meat: true,
+  },
+  {
+    id: 'solomillo',
+    category: 'carnes',
+    name: 'Solomillo a la Plancha',
+    price: '21€',
+    priceNote: '',
+    ingredients: ['Solomillo a la plancha', 'Patatas fritas', 'Pimiento asado'],
+    badges: [],
+    hearty: true,
+    meat: true,
+  },
+  {
+    id: 'chuleta',
+    category: 'carnes',
+    name: 'Chuleta de 1,2 kg',
+    price: '60€',
+    priceNote: 'aprox. para 2 personas',
+    ingredients: ['Chuleta 1,2 kg', 'Pimientos', 'Patatas fritas', 'Pan', 'Agua y vino crianza'],
+    badges: ['Para compartir'],
+    hearty: true,
+    meat: true,
     share: true,
   },
 
@@ -173,12 +374,19 @@ export const PRODUCTS: Product[] = [
     id: 'burger-pollo',
     category: 'hamburguesas',
     name: 'Burger de Pollo',
-    price: '8,50€',
+    price: '8€',
     priceNote: 'hecha al momento',
-    tagline: 'La ligera de la familia. Pollo a la plancha, queso fundido y cebolla dulce.',
-    ingredients: ['Pollo', 'Queso fundido', 'Lechuga', 'Tomate', 'Cebolla confitada', 'Mayo'],
+    ingredients: [
+      'Pollo crujiente',
+      'Queso fundido',
+      'Lechuga',
+      'Tomate',
+      'Cebolla caramelizada',
+      'Mayonesa',
+    ],
+    tagline: 'Pollo crujiente, queso fundido y cebolla caramelizada. La ligera de la familia.',
     protagonist: {
-      name: 'La cebolla confitada',
+      name: 'La cebolla caramelizada',
       text: 'Horas a fuego lento hasta volverse dulce. Es la que le da el toque Zaharra.',
     },
     pairing: 'Combina perfecto con un batido de mango.',
@@ -187,7 +395,7 @@ export const PRODUCTS: Product[] = [
       { label: 'Popularidad', value: 4 },
       { label: 'Contundencia', value: 3 },
       { label: 'Queso', value: 4 },
-      { label: 'Picante', value: 1 }],
+    ],
     hearty: true,
     meat: true,
     kids: true,
@@ -196,17 +404,18 @@ export const PRODUCTS: Product[] = [
     id: 'burger-casa',
     category: 'hamburguesas',
     name: 'Burger de la Casa',
-    price: '10€',
+    price: '12€',
     priceNote: 'hecha al momento',
-    tagline: 'Vacuno, bacon y huevo frito con la yema líquida. La que lleva nuestro nombre.',
     ingredients: [
-      'Pan brioche',
       'Carne de vacuno',
       'Bacon',
       'Huevo frito',
       'Lechuga',
       'Tomate',
-      'Cebolla confitada'],
+      'Cebolla caramelizada',
+      'Mayonesa',
+    ],
+    tagline: 'Vacuno, bacon y huevo frito con la yema líquida. La que lleva nuestro nombre.',
     protagonist: {
       name: 'El bacon',
       text: 'A la plancha hasta el punto exacto: dorado, crujiente y con el humo justo.',
@@ -217,7 +426,7 @@ export const PRODUCTS: Product[] = [
       { label: 'Popularidad', value: 5 },
       { label: 'Contundencia', value: 5 },
       { label: 'Queso', value: 3 },
-      { label: 'Picante', value: 1 }],
+    ],
     hearty: true,
     meat: true,
   },
@@ -225,10 +434,17 @@ export const PRODUCTS: Product[] = [
     id: 'burger-sepia',
     category: 'hamburguesas',
     name: 'Burger de Sepia',
-    price: '12€',
+    price: '14€',
     priceNote: 'hecha al momento',
-    tagline: 'La rebelde de la carta: sepia a la plancha, tomate confitado y pimientos.',
-    ingredients: ['Sepia a la plancha', 'Tomate confitado', 'Pimiento V/R', 'Queso', 'Mayonesa'],
+    ingredients: [
+      'Sepia a la plancha',
+      'Tomate',
+      'Cebolla caramelizada',
+      'Pimiento verde y rojo',
+      'Queso',
+      'Mayonesa',
+    ],
+    tagline: 'La rebelde de la carta: sepia a la plancha, tomate y pimientos.',
     protagonist: {
       name: 'La sepia',
       text: 'A la plancha con fuego fuerte, tierna por dentro y marcada por fuera. Del puerto a la barra.',
@@ -239,7 +455,7 @@ export const PRODUCTS: Product[] = [
       { label: 'Popularidad', value: 4 },
       { label: 'Sabor a mar', value: 5 },
       { label: 'Queso', value: 3 },
-      { label: 'Picante', value: 2 }],
+    ],
     hearty: true,
     meat: false,
   },
@@ -251,8 +467,16 @@ export const PRODUCTS: Product[] = [
     name: 'Bocata de Pollo',
     price: '7€',
     priceNote: 'pan artesanal',
+    ingredients: [
+      'Pollo',
+      'Queso fundido',
+      'Lechuga',
+      'Tomate',
+      'Cebolla confitada',
+      'Mayonesa',
+      'Salsa de la casa',
+    ],
     tagline: 'Pollo jugoso y queso fundido dentro de un pan que cruje al primer bocado.',
-    ingredients: ['Pollo', 'Queso fundido', 'Lechuga', 'Tomate', 'Cebolla confitada'],
     protagonist: {
       name: 'El pan',
       text: 'Artesanal, del día. Si no cruje, no sale de la cocina.',
@@ -260,9 +484,9 @@ export const PRODUCTS: Product[] = [
     pairing: 'De media mañana, con un batido de fresa.',
     badges: [],
     meters: [
-      { label: 'Popularidad', value: 3 },
       { label: 'Contundencia', value: 3 },
-      { label: 'Queso', value: 4 }],
+      { label: 'Queso', value: 4 },
+    ],
     hearty: true,
     meat: true,
     kids: true,
@@ -273,18 +497,18 @@ export const PRODUCTS: Product[] = [
     name: 'Bocata de Lomo',
     price: '8€',
     priceNote: 'pan artesanal',
+    ingredients: ['Lomo de cerdo', 'Pimiento rojo asado', 'Queso fundido'],
     tagline: 'Lomo de cerdo con pimiento rojo asado y queso fundido. Un clásico que no falla.',
-    ingredients: ['Lomo de cerdo', 'Pimiento rojo asado', 'Queso fundido', 'Pan crujiente'],
     protagonist: {
       name: 'El pimiento asado',
       text: 'Asado entero y pelado a mano. Dulce, ahumado, imprescindible.',
     },
-    pairing: 'Con unas patatas bravas para la mesa.',
+    pairing: 'Con unas patatas para la mesa.',
     badges: [],
     meters: [
-      { label: 'Popularidad', value: 4 },
       { label: 'Contundencia', value: 4 },
-      { label: 'Queso', value: 4 }],
+      { label: 'Queso', value: 4 },
+    ],
     hearty: true,
     meat: true,
   },
@@ -293,9 +517,9 @@ export const PRODUCTS: Product[] = [
     category: 'bocatas',
     name: 'Bocata de Ternera',
     price: '9€',
-    priceNote: 'pan rústico crujiente',
+    priceNote: 'pan rústico',
+    ingredients: ['Ternera', 'Lechuga', 'Tomate', 'Cebolla', 'Mayonesa', 'Salsa de la casa'],
     tagline: 'Ternera a la plancha en pan rústico. El bocata serio de la casa.',
-    ingredients: ['Ternera', 'Lechuga', 'Tomate', 'Cebolla', 'Pan rústico crujiente'],
     protagonist: {
       name: 'La ternera',
       text: 'Cortada fina y hecha en plancha bien caliente, para sellarla sin secarla.',
@@ -305,7 +529,7 @@ export const PRODUCTS: Product[] = [
     meters: [
       { label: 'Popularidad', value: 5 },
       { label: 'Contundencia', value: 5 },
-      { label: 'Queso', value: 1 }],
+    ],
     hearty: true,
     meat: true,
   },
@@ -315,20 +539,20 @@ export const PRODUCTS: Product[] = [
     id: 'batido-mango',
     category: 'batidos',
     name: 'Batido de Mango',
-    price: '6€',
-    priceNote: 'sin azúcares añadidos',
+    price: '5€',
+    priceNote: 'fruta natural',
+    ingredients: ['Mango natural', 'Frío', 'Cremoso'],
     tagline: 'Mango natural, frío y cremoso. Verano en vaso, todo el año.',
-    ingredients: ['Mango natural', 'Frío', 'Cremoso', 'Sin azúcares añadidos'],
     protagonist: {
       name: 'El mango',
       text: 'Fruta de verdad, madura en su punto. Nada de sabores: fruta.',
     },
     pairing: 'El compañero fresco de la Burger de Sepia.',
-    badges: ['Sin azúcares añadidos', 'Fruta natural'],
+    badges: ['Fruta natural'],
     meters: [
       { label: 'Frescura', value: 5 },
       { label: 'Fruta', value: 5 },
-      { label: 'Cremosidad', value: 3 }],
+    ],
     hearty: false,
     meat: false,
     kids: true,
@@ -337,20 +561,32 @@ export const PRODUCTS: Product[] = [
     id: 'batido-fresa',
     category: 'batidos',
     name: 'Batido de Fresa',
-    price: '6€',
+    price: '5€',
     priceNote: 'de la fruta a tu vaso',
+    ingredients: ['Fresa natural', 'Frío', 'Intenso'],
     tagline: 'Fresa natural, frío e intenso. De la fruta a tu vaso, sin escalas.',
-    ingredients: ['Fresa natural', 'Frío', 'Intenso', 'De la fruta a tu vaso'],
     protagonist: {
       name: 'La fresa',
       text: 'Batida entera en el momento. El color rojo lo pone ella sola.',
     },
     pairing: 'A los peques con nuggets les cambia la cara.',
-    badges: ['Sin azúcares añadidos', 'Fruta natural'],
+    badges: ['Fruta natural'],
     meters: [
       { label: 'Frescura', value: 5 },
       { label: 'Fruta', value: 5 },
-      { label: 'Cremosidad', value: 3 }],
+    ],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+  {
+    id: 'batido-maracuya',
+    category: 'batidos',
+    name: 'Batido de Maracuyá',
+    price: '5€',
+    priceNote: 'fruta natural',
+    ingredients: ['Maracuyá natural', 'Frío', 'Intenso'],
+    badges: ['Fruta natural'],
     hearty: false,
     meat: false,
     kids: true,
@@ -361,10 +597,10 @@ export const PRODUCTS: Product[] = [
     id: 'malteada-vainilla',
     category: 'malteadas',
     name: 'Malteada de Vainilla',
-    price: '8€',
+    price: '5€',
     priceNote: 'con bola de helado',
-    tagline: 'Helado de vainilla y leche, batidos despacio. Cremosa de cuchara y pajita.',
     ingredients: ['Helado de vainilla', 'Leche', 'Cremosa'],
+    tagline: 'Helado de vainilla y leche, batidos despacio. Cremosa de cuchara y pajita.',
     protagonist: {
       name: 'La bola de helado',
       text: 'Entera dentro del vaso. Por eso la última parte se come, no se bebe.',
@@ -374,7 +610,7 @@ export const PRODUCTS: Product[] = [
     meters: [
       { label: 'Cremosidad', value: 5 },
       { label: 'Dulzura', value: 4 },
-      { label: 'Frescura', value: 4 }],
+    ],
     hearty: false,
     meat: false,
     kids: true,
@@ -383,10 +619,10 @@ export const PRODUCTS: Product[] = [
     id: 'malteada-fresa',
     category: 'malteadas',
     name: 'Malteada de Fresa',
-    price: '8€',
+    price: '5€',
     priceNote: 'con bola de helado',
-    tagline: 'Helado de fresa y leche. Intensa, rosa y peligrosamente fácil de terminar.',
     ingredients: ['Helado de fresa', 'Leche', 'Intensa'],
+    tagline: 'Helado de fresa y leche. Intensa, rosa y peligrosamente fácil de terminar.',
     protagonist: {
       name: 'El helado de fresa',
       text: 'Intenso de fruta, no de colorante. Se nota en la primera pajita.',
@@ -396,7 +632,7 @@ export const PRODUCTS: Product[] = [
     meters: [
       { label: 'Cremosidad', value: 5 },
       { label: 'Dulzura', value: 4 },
-      { label: 'Fruta', value: 4 }],
+    ],
     hearty: false,
     meat: false,
     kids: true,
@@ -405,10 +641,10 @@ export const PRODUCTS: Product[] = [
     id: 'malteada-chocolate',
     category: 'malteadas',
     name: 'Malteada de Chocolate',
-    price: '8€',
+    price: '5€',
     priceNote: 'con bola de helado',
-    tagline: 'Helado de chocolate y leche. Profunda, oscura y sin remordimientos.',
     ingredients: ['Helado de chocolate', 'Leche', 'Profunda'],
+    tagline: 'Helado de chocolate y leche. Profunda, oscura y sin remordimientos.',
     protagonist: {
       name: 'El chocolate',
       text: 'Del oscuro. Profundo como la madera de la barra.',
@@ -417,12 +653,63 @@ export const PRODUCTS: Product[] = [
     badges: ['Con bola de helado'],
     meters: [
       { label: 'Cremosidad', value: 5 },
-      { label: 'Dulzura', value: 5 },
-      { label: 'Intensidad', value: 5 }],
+      { label: 'Intensidad', value: 5 },
+    ],
     hearty: false,
     meat: false,
     kids: true,
-  }]
+  },
+
+  // ——— POSTRES ———
+  {
+    id: 'mousse-limon',
+    category: 'postres',
+    name: 'Mousse de Limón',
+    price: '5€',
+    priceNote: '',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+  {
+    id: 'torrija',
+    category: 'postres',
+    name: 'Torrija',
+    price: '6€',
+    priceNote: '',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+  {
+    id: 'tarta-queso',
+    category: 'postres',
+    name: 'Tarta de Queso',
+    price: '6€',
+    priceNote: '',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+  {
+    id: 'copa-helado',
+    category: 'postres',
+    name: 'Copa de Helado',
+    price: '5€',
+    priceNote: '',
+    ingredients: [],
+    badges: [],
+    hearty: false,
+    meat: false,
+    kids: true,
+  },
+]
 
 export const productsByCategory = (id: CategoryId): Product[] =>
   PRODUCTS.filter((p) => p.category === id)
