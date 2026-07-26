@@ -37,24 +37,6 @@ function IconMapPin({ size = 20 }: { size?: number }) {
   )
 }
 
-function IconClock({ size = 20 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
-  )
-}
-
 export default function ContactLocation() {
   return (
     <section className="mx-auto max-w-xl px-6 pt-16 pb-12" aria-label="Contacto y Ubicación">
@@ -99,39 +81,24 @@ export default function ContactLocation() {
           </div>
         </div>
 
-        {/* Ubicación y Horarios */}
-        <div className="mt-4 grid gap-4 text-left sm:grid-cols-2">
-          <div className="rounded-2xl border border-ink/10 bg-paper p-5">
-            <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-2">
-              <IconMapPin size={16} />
-              <span>Ubicación</span>
+        {/* Ubicación */}
+        <div className="mt-4 text-left">
+          <div className="rounded-2xl border border-ink/10 bg-paper p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-1">
+                <IconMapPin size={16} />
+                <span>Ubicación</span>
+              </div>
+              <p className="font-display text-xl font-semibold text-ink">Bar Zaharra</p>
             </div>
-            <p className="font-display text-lg font-semibold text-ink">Bar Zaharra</p>
-            <p className="mt-1 text-xs leading-relaxed text-ink/70">
-              Calle Mayor, 12<br />
-              Parte Vieja, San Sebastián
-            </p>
             <a
-              href="https://maps.google.com/?q=San+Sebastian+Bar+Zaharra"
+              href="https://maps.app.goo.gl/yJ4ECbnpPz2s23rZ8"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-[11px] font-bold text-rust uppercase tracking-wider underline underline-offset-4"
+              className="inline-flex items-center gap-2 rounded-full border border-rust/40 bg-rust/10 px-5 py-2.5 text-[11px] font-bold text-rust uppercase tracking-wider transition-transform hover:scale-105 active:scale-95"
             >
               Ver en Google Maps →
             </a>
-          </div>
-
-          <div className="rounded-2xl border border-ink/10 bg-paper p-5">
-            <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-2">
-              <IconClock size={16} />
-              <span>Horarios</span>
-            </div>
-            <p className="font-display text-lg font-semibold text-ink">Abiertos cada día</p>
-            <p className="mt-1 text-xs leading-relaxed text-ink/70">
-              Martes a Domingo:<br />
-              <strong className="text-ink font-semibold">12:00h – 23:30h</strong><br />
-              <span className="text-ink/50">Lunes cerrado por descanso</span>
-            </p>
           </div>
         </div>
       </motion.div>
