@@ -10,7 +10,7 @@
   --color-paper-2: #f3ecdc;
   --color-ink: #241c12;
 
-  /* Dorado viejo: el acento de la casa (oscurecido para contraste AA sobre crema) */
+  /* Dorado viejo: el acento de la casa */
   --color-gold: #8a6a2f;
   --color-gold-soft: #b3924f;
 
@@ -54,6 +54,25 @@ body {
 /* Línea de puntos entre plato y precio, como en las cartas clásicas */
 .dot-leader {
   border-bottom: 1.5px dotted color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+
+/* Efecto de brillo de pan de oro en hover */
+.gold-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.25) 45%,
+    rgba(255, 223, 118, 0.5) 50%,
+    rgba(212, 175, 55, 0.25) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes bob {

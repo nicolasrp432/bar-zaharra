@@ -5,6 +5,7 @@
  * y maridaje. El resto se muestra como entrada de carta: nombre, ingredientes
  * y precio.
  */
+import type { AllergenId } from './allergens'
 
 export type CategoryId =
   | 'ensaladas'
@@ -33,6 +34,7 @@ export interface Product {
   priceNote: string
   ingredients: string[]
   badges: string[]
+  allergens?: AllergenId[]
   /** storytelling opcional (solo en los platos de la casa) */
   tagline?: string
   protagonist?: { name: string; text: string }
@@ -147,6 +149,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: [],
     badges: [],
+    allergens: ['pescado', 'huevos', 'sulfitos'],
     hearty: false,
     meat: false,
     kids: true,
@@ -159,6 +162,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'con cebolleta',
     ingredients: ['Tomate', 'Bonito', 'Cebolleta'],
     badges: [],
+    allergens: ['pescado', 'sulfitos'],
     hearty: false,
     meat: false,
   },
@@ -172,6 +176,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'crema de boletus',
     ingredients: ['Alcachofa a la plancha', 'Crema de boletus', 'Jamón'],
     badges: [],
+    allergens: ['lacteos'],
     hearty: false,
     meat: true,
     share: true,
@@ -184,6 +189,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'crema de boletus · sin jamón',
     ingredients: ['Alcachofa a la plancha', 'Crema de boletus'],
     badges: [],
+    allergens: ['lacteos'],
     hearty: false,
     meat: false,
     share: true,
@@ -196,6 +202,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '8 uds.',
     ingredients: ['Jamón ibérico', 'Bechamel', 'Rebozado crujiente'],
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos'],
     hearty: false,
     meat: true,
     kids: true,
@@ -209,6 +216,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'cebolla caramelizada · salsa especial',
     ingredients: ['Txipirones a la plancha', 'Cebolla caramelizada', 'Salsa especial'],
     badges: [],
+    allergens: ['moluscos', 'sulfitos', 'huevos'],
     hearty: true,
     meat: false,
     share: true,
@@ -221,6 +229,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'con parmentier',
     ingredients: ['Pulpo a la plancha', 'Parmentier'],
     badges: [],
+    allergens: ['moluscos', 'lacteos'],
     hearty: true,
     meat: false,
     share: true,
@@ -249,6 +258,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Combinan perfecto con un batido de mango bien frío.',
     badges: ['Para compartir'],
+    allergens: ['lacteos', 'sulfitos'],
     meters: [
       { label: 'Queso', value: 5 },
       { label: 'Picante', value: 3 },
@@ -274,6 +284,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'El escudero oficial de cualquier hamburguesa de la casa.',
     badges: [],
+    allergens: ['huevos', 'sulfitos'],
     meters: [
       { label: 'Crujiente', value: 4 },
       { label: 'De compartir', value: 4 },
@@ -297,6 +308,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Con la salsa búffalo y un batido de fresa, combo ganador.',
     badges: ['Favorito de los peques'],
+    allergens: ['gluten', 'huevos', 'mostaza', 'sulfitos'],
     meters: [
       { label: 'Crujiente', value: 5 },
       { label: 'De compartir', value: 4 },
@@ -314,6 +326,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: ['Alitas de pollo', 'Salsa de la casa'],
     badges: [],
+    allergens: ['soja', 'gluten', 'sulfitos'],
     hearty: false,
     meat: true,
     kids: true,
@@ -327,6 +340,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'caseras',
     ingredients: [],
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos'],
     hearty: false,
     meat: true,
     kids: true,
@@ -342,6 +356,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: ['Entrecot', 'Patatas fritas', 'Pimiento asado'],
     badges: [],
+    allergens: [],
     hearty: true,
     meat: true,
   },
@@ -353,6 +368,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: ['Solomillo a la plancha', 'Patatas fritas', 'Pimiento asado'],
     badges: [],
+    allergens: [],
     hearty: true,
     meat: true,
   },
@@ -364,6 +380,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'aprox. para 2 personas',
     ingredients: ['Chuleta 1,2 kg', 'Pimientos', 'Patatas fritas', 'Pan', 'Agua y vino crianza'],
     badges: ['Para compartir'],
+    allergens: ['gluten', 'sulfitos'],
     hearty: true,
     meat: true,
     share: true,
@@ -391,6 +408,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Combina perfecto con un batido de mango.',
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos', 'sesamo'],
     meters: [
       { label: 'Popularidad', value: 4 },
       { label: 'Contundencia', value: 3 },
@@ -422,6 +440,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Combina perfecto con una malteada de vainilla.',
     badges: ['La más pedida'],
+    allergens: ['gluten', 'huevos', 'sesamo', 'sulfitos'],
     meters: [
       { label: 'Popularidad', value: 5 },
       { label: 'Contundencia', value: 5 },
@@ -451,6 +470,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Con un batido de mango, viaje de ida y vuelta.',
     badges: ['La sorpresa del mar'],
+    allergens: ['gluten', 'moluscos', 'lacteos', 'huevos', 'sesamo'],
     meters: [
       { label: 'Popularidad', value: 4 },
       { label: 'Sabor a mar', value: 5 },
@@ -483,6 +503,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'De media mañana, con un batido de fresa.',
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos'],
     meters: [
       { label: 'Contundencia', value: 3 },
       { label: 'Queso', value: 4 },
@@ -505,6 +526,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Con unas patatas para la mesa.',
     badges: [],
+    allergens: ['gluten', 'lacteos'],
     meters: [
       { label: 'Contundencia', value: 4 },
       { label: 'Queso', value: 4 },
@@ -526,6 +548,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Combina perfecto con una malteada de chocolate.',
     badges: ['El más pedido'],
+    allergens: ['gluten', 'huevos', 'mostaza'],
     meters: [
       { label: 'Popularidad', value: 5 },
       { label: 'Contundencia', value: 5 },
@@ -549,6 +572,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'El compañero fresco de la Burger de Sepia.',
     badges: ['Fruta natural'],
+    allergens: [],
     meters: [
       { label: 'Frescura', value: 5 },
       { label: 'Fruta', value: 5 },
@@ -571,6 +595,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'A los peques con nuggets les cambia la cara.',
     badges: ['Fruta natural'],
+    allergens: [],
     meters: [
       { label: 'Frescura', value: 5 },
       { label: 'Fruta', value: 5 },
@@ -587,6 +612,7 @@ export const PRODUCTS: Product[] = [
     priceNote: 'fruta natural',
     ingredients: ['Maracuyá natural', 'Frío', 'Intenso'],
     badges: ['Fruta natural'],
+    allergens: [],
     hearty: false,
     meat: false,
     kids: true,
@@ -607,6 +633,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'El dúo clásico con la Burger de la Casa.',
     badges: ['Con bola de helado'],
+    allergens: ['lacteos'],
     meters: [
       { label: 'Cremosidad', value: 5 },
       { label: 'Dulzura', value: 4 },
@@ -629,6 +656,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'De postre después de unos nachos, cierra el círculo.',
     badges: ['Con bola de helado'],
+    allergens: ['lacteos'],
     meters: [
       { label: 'Cremosidad', value: 5 },
       { label: 'Dulzura', value: 4 },
@@ -651,6 +679,7 @@ export const PRODUCTS: Product[] = [
     },
     pairing: 'Combina perfecto con el Bocata de Ternera. Palabra.',
     badges: ['Con bola de helado'],
+    allergens: ['lacteos', 'soja'],
     meters: [
       { label: 'Cremosidad', value: 5 },
       { label: 'Intensidad', value: 5 },
@@ -669,6 +698,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: [],
     badges: [],
+    allergens: ['lacteos', 'huevos'],
     hearty: false,
     meat: false,
     kids: true,
@@ -681,6 +711,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: [],
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos'],
     hearty: false,
     meat: false,
     kids: true,
@@ -693,6 +724,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: [],
     badges: [],
+    allergens: ['gluten', 'lacteos', 'huevos'],
     hearty: false,
     meat: false,
     kids: true,
@@ -705,6 +737,7 @@ export const PRODUCTS: Product[] = [
     priceNote: '',
     ingredients: [],
     badges: [],
+    allergens: ['lacteos'],
     hearty: false,
     meat: false,
     kids: true,

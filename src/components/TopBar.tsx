@@ -4,11 +4,15 @@ import { CATEGORIES } from '../data/menu'
 import { useActiveChapter } from '../hooks/useActiveChapter'
 import { IconMenu } from './Icons'
 
+interface TopBarProps {
+  onIndex: () => void
+}
+
 /**
  * Barra superior sobre papel: aparece al dejar atrás la portada. Marca a la
- * izquierda, capítulo activo en el centro y acceso al índice a la derecha.
+ * izquierda, capítulo activo en el centro y acceso a 'Ver Menú' a la derecha.
  */
-export default function TopBar({ onIndex }: { onIndex: () => void }) {
+export default function TopBar({ onIndex }: TopBarProps) {
   const [visible, setVisible] = useState(false)
   const active = useActiveChapter()
   const category = CATEGORIES.find((c) => c.id === active)
@@ -28,7 +32,7 @@ export default function TopBar({ onIndex }: { onIndex: () => void }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -56, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-          className="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-paper/85 backdrop-blur-xl"
+          className="fixed inset-x-0 top-0 z-50 border-b border-gold/20 bg-paper/90 backdrop-blur-xl shadow-xs"
         >
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-2.5">
             <button
@@ -47,7 +51,7 @@ export default function TopBar({ onIndex }: { onIndex: () => void }) {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  className="hidden font-serif text-base italic text-ink/70 sm:block"
+                  className="hidden font-serif text-base italic text-ink/80 sm:block"
                 >
                   {category.chapter} · {category.name}
                 </motion.span>
@@ -57,10 +61,10 @@ export default function TopBar({ onIndex }: { onIndex: () => void }) {
             <button
               type="button"
               onClick={onIndex}
-              className="flex items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/75 transition-colors hover:border-gold hover:text-gold"
+              className="flex items-center gap-2 rounded-full border border-ink/15 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-ink/75 transition-colors hover:border-gold hover:text-gold"
             >
               <IconMenu size={14} />
-              Índice
+              Ver Menú
             </button>
           </div>
         </motion.header>
